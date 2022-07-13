@@ -9,9 +9,10 @@ SRCS := parser.c \
 
 TEST := test.c
 UTILS := $(UTILSDIR)$(addsufix .h, $(NAME))
+DEFINE :=
 
 CC := clang
-CFLAGS := -MMD -Wall -Werror -Wextra -D MAIN=1 -I ./utils -I ./test -I ./libft/includes -fsanitize=address -g3
+CFLAGS := -MMD -Wall -Werror -Wextra -D $(DEFINE) -I ./utils -I ./test -I ./libft/includes -fsanitize=address -g3
 CPPFLAGS := -L ./libft
 LDFLAGS := -lcriterion -lft
 
@@ -39,6 +40,7 @@ parser: $(OBJS)
 
 test.out: $(OBJS) $(TOBJS)
 	$(CC) $(CFLAGS) $(CPPFLAGS) $^ -o $@ $(LDFLAGS)
+	./test.out
 
 testclean:
 	rm -rf $(OBJSDIR)
