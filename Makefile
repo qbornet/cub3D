@@ -9,10 +9,10 @@ SRCS := parser.c \
 
 TEST := test.c
 UTILS := $(UTILSDIR)$(addsufix .h, $(NAME))
-DEFINE :=
+DEFINE := # when make test.out DEFINE='-D MAIN=1'
 
 CC := clang
-CFLAGS := -MMD -Wall -Werror -Wextra -D $(DEFINE) -I ./utils -I ./test -I ./libft/includes -fsanitize=address -g3
+CFLAGS := -MMD -Wall -Werror -Wextra $(DEFINE) -I ./utils -I ./test -I ./libft/includes -fsanitize=address -g3
 CPPFLAGS := -L ./libft
 LDFLAGS := -lcriterion -lft
 
