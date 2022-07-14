@@ -6,6 +6,7 @@ int	valid_name(char *str)
 	int		count;
 	char	*ext;
 
+	(void)count;
 	i = -1;
 	ext = NULL;
 	count = 0;
