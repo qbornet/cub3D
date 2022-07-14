@@ -11,5 +11,8 @@
 
 TestSuite(get_texture, .description = "This should return texture path");
 TestSuite(valid_name, .description = "This should return a valid map");
+TestSuite(map_parser, .description = "This should parse a map");
+TestSuite(check_line, .description = "This should parse a map");
+
 
 #endif

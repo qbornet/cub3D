@@ -5,11 +5,15 @@ NAME := cub3D
 
 SRCS := parser.c \
 		ft_retputstr_int.c \
+		ft_free_str.c \
+		ft_get_next_line.c \
+		ft_get_next_line_utils.c \
+		map_parser.c \
 		cub3D.c
 
 TEST := test.c
 UTILS := $(UTILSDIR)$(addsufix .h, $(NAME))
-DEFINE := # when make test.out DEFINE='-D MAIN=1'
+DEFINE=-D MAIN=1
 
 CC := clang
 CFLAGS := -MMD -Wall -Werror -Wextra $(DEFINE) -I ./utils -I ./test -I ./libft/includes -fsanitize=address -g3
