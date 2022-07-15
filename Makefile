@@ -9,6 +9,8 @@ SRCS := parser.c \
 		ft_get_next_line.c \
 		ft_get_next_line_utils.c \
 		map_parser.c \
+		map_parser_utils.c \
+		ft_str_tools.c \
 		cub3D.c
 
 TEST := test.c
@@ -43,7 +45,7 @@ parser: $(OBJS)
 	$(CC) $(CFLAGS) $(CPPFLAGS) $^ -o $@ -lft
 
 test.out: $(OBJS) $(TOBJS)
-	$(CC) $(CFLAGS) $(CPPFLAGS) $^ -o $@ $(LDFLAGS)
+	$(CC) $(CFLAGS) $(CPPFLAGS) $^ -o $@ $(LDFLAGS) -g3
 	./test.out
 
 testclean:
