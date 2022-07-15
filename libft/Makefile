@@ -57,7 +57,7 @@ SRCS := ft_atoi.c \
 	   get_next_line.c
 
 
-SLEEP := 0.110
+SLEEP := 0.055
 VPATH := srcs # search in dir name in VPATH variable
 OBJSDIR := objs
 OBJS := $(SRCS:%.c=$(OBJSDIR)/%.o)
@@ -66,7 +66,7 @@ DEPS := $(OBJS:%.o=%.d)
 
 
 CC = clang
-CFLAGS = -MMD -Wall -Werror -Wextra
+CFLAGS = -MMD -Wall -Werror -Wextra -g3
 CPPFLAGS = -I ./includes
 
 NAME = libft.a
