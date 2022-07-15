@@ -49,7 +49,7 @@ int		ft_valid_file(char *filename);
 
 /* opt_parser.c */
 // optimization for norm of colors_atoi fucntion
-int	opt_colorsatoi(char *str, int *i);
+int		opt_colorsatoi(char *str, int *i);
 
 // optimization for norm of select_direction function
 void	opt_setdirection(char **t_curr, int direction);
