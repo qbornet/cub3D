@@ -1,0 +1,9 @@
+NO	~/path_to_texture
+SO	~/path_to_texture
+WE	~/path_to_texture
+EA	~/path_to_texture
+
+F 300,350,400
+C -10,500505,+112
+
+this shouldn't work and return Error

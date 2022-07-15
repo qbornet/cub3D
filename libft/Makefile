@@ -66,7 +66,7 @@ DEPS := $(OBJS:%.o=%.d)
 
 
 CC = clang
-CFLAGS = -MMD -Wall -Werror -Wextra
+CFLAGS = -MMD -Wall -Werror -Wextra -g3
 CPPFLAGS = -I ./includes
 
 NAME = libft.a

@@ -6,14 +6,14 @@
 /*   By: qbornet <qbornet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 22:58:31 by qbornet           #+#    #+#             */
-/*   Updated: 2021/11/25 10:47:59 by qbornet          ###   ########.fr       */
+/*   Updated: 2022/07/14 17:23:07 by qbornet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdlib.h>
 
-static int	ft_substr_strlen(char const *s)
+static size_t	ft_substr_strlen(char const *s)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	while (s[i])
@@ -37,7 +37,10 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	while (s[start] && i < len && !(start >= max))
 		str[i++] = s[start++];
 	while (i < len)
-		str[i++] = '\0';
+	{
+		str[i] = '\0';
+		i++;
+	}
 	str[i] = '\0';
 	return (str);
 }
