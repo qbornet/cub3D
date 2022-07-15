@@ -4,8 +4,8 @@ SO ./south_texture
 EA ./east_texture
 WE ./west_texture
 
-F		   0,255,255
-C				255,255,255
+F		   0,		255,		255
+C				255			,		255			,			255
 
 this i random test
 will see if this work

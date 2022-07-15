@@ -36,7 +36,8 @@ int	*colors_atoi(char *str)
 		if (res > 255)
 			return (ft_free_ret_iptr(tab));
 		tab[j++] = res;
-		i++;
+		while (str[i] && !ft_isdigit(str[i]))
+			i++;
 	}
 	return (tab);
 }
