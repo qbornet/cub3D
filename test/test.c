@@ -49,6 +49,8 @@ Test(get_texture, parsing)
 		ret = memcmp(tab[i], res[i], strlen(tab[i]) * sizeof(char));
 		cr_expect(eq(int, ret, 0));
 	}
+	res = get_texture("./map/tmp.cub");
+	cr_expect(eq(ptr, res, NULL));
 }
 
 Test(ft_get_colors, parsing)
@@ -89,4 +91,6 @@ Test(get_colors, parsing)
 			cr_expect(eq(int, ret, 0));
 		}
 	}
+	colors = get_colors("./map/tmp.cub");
+	cr_expect(eq(ptr, colors, NULL));
 }

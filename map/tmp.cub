@@ -1,7 +1,7 @@
-NO	~/path_to_texture
-SO	~/path_to_texture
-WE	~/path_to_texture
-EA	~/path_to_texture
+N	~/path_to_texture
+S	~/path_to_texture
+W	~/path_to_texture
+E	~/path_to_texture
 
 F 300,350,400
 C -10,500505,+112
