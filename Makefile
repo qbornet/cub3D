@@ -3,6 +3,8 @@
 
 NAME := cub3D
 
+# --- [FILE] ----
+
 # File to create main
 SRCS := cub3D.c \
 		ft_retputstr_int.c
@@ -14,6 +16,8 @@ PARSER := parser.c \
 		  ft_parser_utils.c \
 		  ft_free_ret_iptr.c 
 
+# --- [COMPILE] ---
+
 TEST := test.c
 UTILS := $(UTILSDIR)$(addsufix .h, $(NAME))
 DEFINE := # when make test.out DEFINE='-D MAIN=1'
@@ -23,17 +27,20 @@ DFLAGS := -MMD -Wall -Werror -Wextra
 CFLAGS :=  $(DFLAGS) $(DEFINE) -I ./utils -I ./test -I ./libft/includes -g3 #-fsanitize=address
 CPPFLAGS := -L ./libft
 LDFLAGS := -lcriterion -lft
+# --- [DIR] ---
 
 OBJSDIR := objs/
 SRCSDIR := srcs/
 UTILSDIR := utils/
 TESTDIR := test/
 
+# --- [OBJECT] ---
 OBJS := $(SRCS:%.c=$(OBJSDIR)%.o)
 POBJS := $(PARSER:%.c=$(OBJSDIR)%.o)
 TOBJS := $(TEST:%.c=$(OBJSDIR)%.o)
 DEPS := $(OBJS:%.o=%.d)
 
+# --- [RULES] ---
 $(OBJSDIR)%.o: $(TESTDIR)%.c $(UTILS)
 	make -C ./libft
 	mkdir -p $(OBJSDIR) 2>&1 > /dev/null
