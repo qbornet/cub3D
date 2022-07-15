@@ -33,6 +33,7 @@ int	ft_isvalid_path(char c, char next)
 		return (-1);
 	if ((c == '~' && next == '/')
 		|| (c == '.' && next == '/')
+		|| (c == '.' && next == '.')
 		|| (c == '/' && ft_isprint(next)))
 		return (1);
 	return (0);
