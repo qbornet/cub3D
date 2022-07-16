@@ -16,8 +16,6 @@ PARSER := parser.c \
 		  ft_parser_utils.c \
 		  map_parser.c \
 		  ft_free_str.c \
-		  ft_get_next_line.c \
-		  ft_get_next_line_utils.c \
 		  map_parser_utils.c \
 		  ft_str_tools.c \
 		  ft_free_ret_iptr.c

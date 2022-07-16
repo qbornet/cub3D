@@ -71,14 +71,6 @@ int		ft_retputstr_int(char *str, int fd, int exit_code);
 // free a (int *) and return NULL
 int		*ft_free_ret_iptr(int *tab);
 
-/* ft_get_next_line.c */
-// Return next line for a given fd
-char	*ft_get_next_line(int fd);
-
-/* ft_get_next_line_utils.c */
-// check valid fd and allocates buffer memory
-char	*init_gnl(int file_des);
-
 /* ft_free_str.c */
 // Free s and return NULL
 char	*ft_retfree_str(char **s);

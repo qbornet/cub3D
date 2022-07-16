@@ -67,7 +67,7 @@ static int	set_line(char **l, char **l_bef, int *pos, int fd)
 	if (*l_bef)
 		free(*l_bef);
 	*l_bef = *l;
-	*l = ft_get_next_line(fd);
+	*l = get_next_line(fd, 10);
 	return (0);
 }
 
@@ -91,7 +91,7 @@ int	map_parser(int fd)
 	char	*l_bef;
 
 	l_bef = NULL;
-	l = ft_get_next_line(fd);
+	l = get_next_line(fd, 10);
 	if (!l)
 		return (-1);
 	pos = 0;
