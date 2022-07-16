@@ -101,10 +101,12 @@ int	*ft_get_colors(char *filename, int level)
 
 int	**get_colors(char *filename)
 {
-	int	i;
-	int	**tab;
+	int					i;
+	int					**tab;
+	enum e_colors_pos	dummy;
 
 	i = -1;
+	(void)dummy;
 	tab = ft_calloc(3, sizeof(int *));
 	if (!tab)
 		return (NULL);
