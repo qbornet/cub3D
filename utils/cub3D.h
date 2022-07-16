@@ -92,4 +92,16 @@ int		ft_is_sta_pos(char c);
 // Removes trailing c char
 char	*ft_rmt_chr(const char *s, char c);
 
+// Cpy len elts from tab to res
+int		ft_cpy_tab(const char **tab, char **res, size_t len);
+
+// Return tab len /!\ Do not use if no NULL inside tab /!\/
+size_t	ft_len_tab(const char **tab);
+
+// Allocate a new tab, if s is not NULL place it at index 0 of the tab and NULL at index 1
+char	**ft_new_tab(const char *s);
+
+// Return a tab of string updated with s at the end
+char	**ft_add_str(const char **tab, const char *s);
+
 #endif

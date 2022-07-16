@@ -28,7 +28,7 @@ DEFINE :=-D MAIN=1
 
 CC := clang
 DFLAGS := -MMD -Wall -Werror -Wextra
-CFLAGS :=  $(DFLAGS) $(DEFINE) -I ./utils -I ./test -I ./libft/includes -g3 #-fsanitize=address
+CFLAGS :=  $(DFLAGS) $(DEFINE) -I ./utils -I ./test -I ./libft/includes -g3 -fsanitize=address
 CPPFLAGS := -L ./libft
 LDFLAGS := -lcriterion -lft
 

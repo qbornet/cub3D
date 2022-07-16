@@ -569,3 +569,66 @@ Test(map_parser, parsing_map_work3)
 	cr_expect(eq(int, map_parser(fd), -1));
 	cr_assert(ne(int, close(fd), -1));
 }
+
+Test(ft_tab, parsing)
+{
+	char	**tab;
+
+	tab = ft_new_tab(NULL);
+	free(tab);
+	tab = ft_new_tab(NULL);
+	cr_assert(ne(ptr, tab, NULL));
+	cr_expect(eq(ptr, tab[0], NULL));
+	free(tab);
+	tab = ft_new_tab("toto");
+	cr_assert(ne(ptr, tab, NULL));
+	cr_expect(eq(str, tab[0], "toto"));
+	cr_expect(eq(ptr, tab[1], NULL));
+	free(tab[0]);
+	free(tab);
+}
+
+Test(ft_len_tab, parsing)
+{
+	char	*tab[6] = {NULL, "toto", NULL, "toto", "tata", NULL};
+
+	ft_len_tab(NULL);
+	cr_expect(eq(long, ft_len_tab(NULL), 0));
+	cr_expect(eq(long, ft_len_tab((const char **)tab), 0));
+	cr_expect(eq(long, ft_len_tab((const char **)(tab + 1)), 1));
+	cr_expect(eq(long, ft_len_tab((const char **)(tab + 3)), 2));
+}
+
+Test(ft_add_str, parsing)
+{
+	char	**res;
+	char 	*tab[4] = {NULL, "toto", "titi", NULL};
+
+	ft_add_str(NULL, NULL);
+	cr_expect(eq(ptr, ft_add_str(NULL, NULL), NULL));
+
+	res = ft_add_str(NULL, "toto");
+	cr_assert(ne(ptr, res, NULL));
+	cr_expect(eq(str, res[0], "toto"));
+	cr_expect(eq(ptr, res[1], NULL));
+	free(res[0]);
+	free(res);
+	res = ft_add_str((const char **)tab, "toto");
+	cr_assert(ne(ptr, res, NULL));
+	cr_expect(eq(str, res[0], "toto"));
+	cr_expect(eq(ptr, res[1], NULL));
+	free(res[0]);
+	free(res);
+	res = ft_add_str((const char **)tab + 1, "tata");
+	cr_assert(ne(ptr, res, NULL));
+	cr_expect(eq(str, res[0], "toto"));
+	cr_expect(eq(str, res[1], "titi"));
+	cr_expect(eq(str, res[2], "tata"));
+	cr_expect(eq(ptr, res[3], NULL));
+	free(res[0]);
+	free(res[1]);
+	free(res[2]);
+	free(res);
+	res = ft_add_str((const char **)tab + 1, NULL);
+	cr_expect(eq(ptr, res, NULL));
+}
