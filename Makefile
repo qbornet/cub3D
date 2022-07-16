@@ -26,13 +26,14 @@ PARSER := parser.c \
 
 TEST := test.c
 UTILS := $(UTILSDIR)$(addsufix .h, $(NAME))
-DEFINE=-D MAIN=1
+DEFINE :=
 
 CC := clang
 DFLAGS := -MMD -Wall -Werror -Wextra
 CFLAGS :=  $(DFLAGS) $(DEFINE) -I ./utils -I ./test -I ./libft/includes -g3 -fsanitize=address
 CPPFLAGS := -L ./libft
 LDFLAGS := -lcriterion -lft
+
 # --- [DIR] ---
 
 OBJSDIR := objs/
