@@ -61,9 +61,11 @@ static int	check_edge_line(const char *s)
 
 int	check_line(char *l_bef, char *l)
 {
-	if (!l_bef && !l)
+	if ((!l_bef && !l) || ((l_bef && !l_bef[0]) && (l && !l[0])))
 		return (-1);
-	if ((l_bef && !l_bef[0]) || (l && !l[0]))
+	if ((l && !l[0]) || ((l_bef && !l_bef[0]) && !l))
+		return (0);
+	if ((l_bef && !l_bef[0]) && l)
 		return (-1);
 	if (!l_bef && l)
 	{

@@ -24,10 +24,12 @@ char	*nrm_line(const char *s, int *pos)
 
 	if (!s || !pos)
 		return (NULL);
-	if (!s[0] || s[0] == '\n')
+	if (!s[0])
 		return (NULL);
-	i = 0;
 	flg = 0;
+	if (s[0] == '\n')
+		flg = 1;
+	i = 0;
 	while (1)
 	{
 		if (check_end(s, &res, i, flg))
@@ -67,7 +69,7 @@ static int	set_line(char **l, char **l_bef, int *pos, int fd)
 	if (*l_bef)
 		free(*l_bef);
 	*l_bef = *l;
-	*l = get_next_line(fd, 10);
+	*l = get_next_line(fd, BUFFER_SIZE);
 	return (0);
 }
 
@@ -91,7 +93,7 @@ int	map_parser(int fd)
 	char	*l_bef;
 
 	l_bef = NULL;
-	l = get_next_line(fd, 10);
+	l = get_next_line(fd, BUFFER_SIZE);
 	if (!l)
 		return (-1);
 	pos = 0;
