@@ -22,19 +22,19 @@ Test(ft_get_texture, parsing)
 {
 	char	*path;
 
-	path = ft_get_texture("./map/toto.cub", 'n');
+	path = ft_get_texture("./maps/toto.cub", 'n');
 	cr_assert(ne(ptr, path, NULL));
 	cr_expect(eq(str, path, "./north_texture"));
 	free(path);
-	path = ft_get_texture("./map/toto.cub", 's');
+	path = ft_get_texture("./maps/toto.cub", 's');
 	cr_assert(ne(ptr, path, NULL));
 	cr_expect(eq(str, path, "./south_texture"));
 	free(path);
-	path = ft_get_texture("./map/toto.cub", 'e');
+	path = ft_get_texture("./maps/toto.cub", 'e');
 	cr_assert(ne(ptr, path, NULL));
 	cr_expect(eq(str, path, "./east_texture"));
 	free(path);
-	path = ft_get_texture("./map/toto.cub", 'w');
+	path = ft_get_texture("./maps/toto.cub", 'w');
 	cr_assert(ne(ptr, path, NULL));
 	cr_expect(eq(str, path, "./west_texture"));
 	free(path);
@@ -46,16 +46,19 @@ Test(get_texture, parsing)
 	char	**res;
 	char	*tab[5] = { "./north_texture", "./south_texture", "./west_texture", "./east_texture", NULL };
 
-	res = get_texture("map/gap.cub");
+	res = get_texture("maps/gap.cub");
 	cr_assert(ne(ptr, res, NULL));
 	for (int i = 0; tab[i]; i++)
 	{
 		ret = memcmp(tab[i], res[i], strlen(tab[i]) * sizeof(char));
 		cr_expect(eq(int, ret, 0));
-		free(res[i]);
 	}
-	free(res);
-	res = get_texture("./map/tmp.cub");
+	for (int i = 0; i < 4; i++)
+		if (res[i])
+			free(res[i]);
+	if (res)
+		free(res);
+	res = get_texture("./maps/tmp.cub");
 	cr_expect(eq(ptr, res, NULL));
 }
 
@@ -63,21 +66,21 @@ Test(ft_get_colors, parsing)
 {
 	int	*tab;
 
-	tab = ft_get_colors("./map/toto.cub", 'f');
+	tab = ft_get_colors("./maps/toto.cub", 'f');
 	cr_assert(ne(ptr, tab, NULL));
 	cr_expect(eq(int, tab[0], 0));
 	cr_expect(eq(int, tab[1], 255));
 	cr_expect(eq(int, tab[2], 255));
 	free(tab);
-	tab = ft_get_colors("./map/toto.cub", 'c');
+	tab = ft_get_colors("./maps/toto.cub", 'c');
+	cr_assert(ne(ptr, tab, NULL));
 	cr_expect(eq(int, tab[0], 255));
 	cr_expect(eq(int, tab[1], 255));
 	cr_expect(eq(int, tab[2], 255));
 	free(tab);
-	tab = ft_get_colors("./map/tmp.cub", 'f'); // valeur non valide pour le floor
+	tab = ft_get_colors("./maps/tmp.cub", 'f'); // valeur non valide pour le floor
 	cr_expect(eq(ptr, tab, NULL));
-	free(tab);
-	tab = ft_get_colors("./map/tmp.cub", 'c'); // valeur non valide pour le ceilling
+	tab = ft_get_colors("./maps/tmp.cub", 'c'); // valeur non valide pour le ceilling
 	cr_expect(eq(ptr, tab, NULL));
 }
 
@@ -90,7 +93,7 @@ Test(get_colors, parsing)
 	};
 	int	ret;
 
-	colors = get_colors("./map/toto.cub");
+	colors = get_colors("./maps/toto.cub");
 	cr_assert(ne(ptr, colors, NULL));
 	for (int i = 0; i < 2; i++)
 	{
@@ -99,10 +102,13 @@ Test(get_colors, parsing)
 			ret = memcmp(&colors[i][j], &tab[i][j], sizeof(int));
 			cr_expect(eq(int, ret, 0));
 		}
-		free(colors[i]);
 	}
-	free(colors);
-	colors = get_colors("./map/tmp.cub");
+	for (int i = 0; i < 2; i++)
+		if (colors[i])
+			free(colors[i]);
+	if (colors)
+		free(colors);
+	colors = get_colors("./maps/tmp.cub");
 	cr_expect(eq(ptr, colors, NULL));
 }
 

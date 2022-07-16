@@ -95,10 +95,12 @@ int	valid_name(char *str)
 
 char	**get_texture(char *filename)
 {
-	int		i;
-	char	**tab;
+	int					i;
+	char				**tab;
+	enum e_texture_pos	dummy;
 
 	i = -1;
+	(void)dummy;
 	tab = ft_calloc(5, sizeof(char *));
 	if (!tab)
 		return (NULL);
