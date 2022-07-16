@@ -93,6 +93,9 @@ char	*nrm_line(const char *s, int *pos);
 // Check for valid line
 int		check_line(char *lbefore, char *l);
 
+// Return 1 if c is S, N, E, W
+int		ft_is_sta_pos(char c);
+
 /* ft_str_tools.c */
 // Removes trailing c char
 char	*ft_rmt_chr(const char *s, char c);

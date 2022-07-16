@@ -15,7 +15,7 @@ char	*ft_rmt_chr(const char *s, char c)
 			return (NULL);
 		return (res);
 	}
-	res = ft_calloc(len, sizeof(char));	
+	res = ft_calloc(len, sizeof(char));
 	if (!res)
 		return (NULL);
 	ft_strlcpy(res, s, len);

@@ -1,5 +1,21 @@
 #include <cub3D.h>
 
+static int	check_end(const char *s, char **res, size_t i, int flg)
+{
+	*res = NULL;
+	if (!s[i] || s[i] == '\n')
+	{
+		if (!flg)
+			return (1);
+		*res = ft_rmt_chr(s, '\n');
+		return (1);
+	}
+	else if (!ft_isspace(s[i]) && s[i] != '0'
+		&& s[i] != '1' && !ft_is_sta_pos(s[i]))
+		return (1);
+	return (0);
+}
+
 char	*nrm_line(const char *s, int *pos)
 {
 	int		flg;
@@ -14,32 +30,63 @@ char	*nrm_line(const char *s, int *pos)
 	flg = 0;
 	while (1)
 	{
-		if (!s[i] || s[i] == '\n')
-		{
-			if (!flg)
-				return (NULL);
-			res = ft_rmt_chr(s, '\n');
-			if (!res)
-				return (NULL);
+		if (check_end(s, &res, i, flg))
 			return (res);
-		}
-		else if (s[i] != ' ' && s[i] != '0' && s[i] != '1' && s[i] != 'N' && s[i] != 'S' && s[i] != 'W' && s[i] != 'E')
-			return (NULL);
 		if (s[i] == '0' || s[i] == '1')
 			flg = 1;
-		else if (s[i] != ' ' && *pos)
+		else if (!ft_isspace(s[i]) && *pos)
 			return (NULL);
-		else if (s[i] != ' ' && !*pos)
+		else if (!ft_isspace(s[i]) && !*pos)
 			*pos = 1;
 		i++;
 	}
 	return (NULL);
 }
 
+static int	set_line(char **l, char **l_bef, int *pos, int fd)
+{
+	char	*tmp;
+
+	tmp = *l;
+	*l = nrm_line(*l, pos);
+	if (!*l)
+	{
+		if (*l_bef)
+			free(*l_bef);
+		free(tmp);
+		return (-1);
+	}
+	free(tmp);
+	if (check_line(*l_bef, *l) < 0)
+	{
+		if (*l_bef)
+			free(*l_bef);
+		free(*l);
+		return (-1);
+	}
+	if (*l_bef)
+		free(*l_bef);
+	*l_bef = *l;
+	*l = ft_get_next_line(fd);
+	return (0);
+}
+
+static int	check_last_line(char **l_bef, int *pos)
+{
+	if (check_line(*l_bef, NULL) < 0)
+	{
+		free(*l_bef);
+		return (-1);
+	}
+	free(*l_bef);
+	if (!*pos)
+		return (-1);
+	return (0);
+}
+
 int	map_parser(int fd)
 {
 	int		pos;
-	char	*tmp;
 	char	*l;
 	char	*l_bef;
 
@@ -47,56 +94,18 @@ int	map_parser(int fd)
 	l = ft_get_next_line(fd);
 	if (!l)
 		return (-1);
-	tmp = l;
 	pos = 0;
-	l = nrm_line(l, &pos);
-	if (!l)
-	{
-		free(tmp);
+	if (set_line(&l, &l_bef, &pos, fd) < 0)
 		return (-1);
-	}
-	free(tmp);
-	if (check_line(l_bef, l) < 0)
-	{
-		free(l);
-		return (-1);
-	}
-	l_bef = l;
-	l = ft_get_next_line(fd);
 	if (!l)
 	{
 		free(l_bef);
 		return (-1);
 	}
 	while (l)
-	{
-		tmp = l;
-		l = nrm_line(l, &pos);
-		if (!l)
-		{
-			free(l_bef);
-			free(tmp);
+		if (set_line(&l, &l_bef, &pos, fd) < 0)
 			return (-1);
-		}
-		free(tmp);
-		if (check_line(l_bef, l) < 0)
-		{
-			free(l);
-			free(l_bef);
-			return (-1);
-		}
-		free(l_bef);
-		l_bef = l;
-		l = ft_get_next_line(fd);
-		
-	}
-	if (check_line(l_bef, NULL) < 0)
-	{
-		free(l_bef);
-		return (-1);
-	}
-	free(l_bef);
-	if (!pos)
+	if (check_last_line(&l_bef, &pos) < 0)
 		return (-1);
 	return (0);
 }
