@@ -340,233 +340,264 @@ Test(nrm_line, parsing)
 
 Test(map_parser, parsing_map0)
 {
-	int	fd;
+	int		fd;
+	char	**tab;
 
 	fd = open("./maps/map0.cub", O_RDONLY);
 	cr_assert(ne(int, fd, -1));
-	cr_expect(eq(int, map_parser(fd), 0));
+	cr_expect(eq(int, map_parser(fd, &tab), 0));
 	cr_assert(ne(int, close(fd), -1));
+	ft_retfree_tab(&tab, ft_len_tab((const char **)tab));
 }
 
 // Valid map
 Test(map_parser, parsing_map2)
 {
-	int	fd;
+	int		fd;
+	char	**tab;
 
 	fd = open("./maps/map2.cub", O_RDONLY);
 	cr_assert(ne(int, fd, -1));
-	cr_expect(eq(int, map_parser(fd), 0));
+	cr_expect(eq(int, map_parser(fd, &tab), 0));
 	cr_assert(ne(int, close(fd), -1));
+	ft_retfree_tab(&tab, ft_len_tab((const char **)tab));
 }
 
 Test(map_parser, parsing_map3)
 {
-	int	fd;
+	int		fd;
+	char	**tab;
 
 	fd = open("./maps/map3.cub", O_RDONLY);
 	cr_assert(ne(int, fd, -1));
-	cr_expect(eq(int, map_parser(fd), 0));
+	cr_expect(eq(int, map_parser(fd, &tab), 0));
 	cr_assert(ne(int, close(fd), -1));
+	ft_retfree_tab(&tab, ft_len_tab((const char **)tab));
 }
 
 Test(map_parser, parsing_map4)
 {
-	int	fd;
+	int		fd;
+	char	**tab;
 
 	fd = open("./maps/map4.cub", O_RDONLY);
 	cr_assert(ne(int, fd, -1));
-	cr_expect(eq(int, map_parser(fd), 0));
+	cr_expect(eq(int, map_parser(fd, &tab), 0));
 	cr_assert(ne(int, close(fd), -1));
+	ft_retfree_tab(&tab, ft_len_tab((const char **)tab));
 }
 
 Test(map_parser, parsing_map5)
 {
 	int	fd;
+	char	 **tab;
 
 	fd = open("./maps/map5.cub", O_RDONLY);
 	cr_assert(ne(int, fd, -1));
-	cr_expect(eq(int, map_parser(fd), 0));
+	cr_expect(eq(int, map_parser(fd, &tab), 0));
 	cr_assert(ne(int, close(fd), -1));
+	ft_retfree_tab(&tab, ft_len_tab((const char **)tab));
 }
 
 // Not valid map
 Test(map_parser, parsing_map0_err)
 {
 	int	fd;
+	char	**tab;
 
 	fd = open("./maps/err/map0_err.cub", O_RDONLY);
 	cr_assert(ne(int, fd, -1));
-	cr_expect(eq(int, map_parser(fd), -1));
+	cr_expect(eq(int, map_parser(fd, &tab), -1));
 	cr_assert(ne(int, close(fd), -1));
 }
 	
 Test(map_parser, parsing_map1_err)
 {
 	int	fd;
+	char	**tab;
 
 	fd = open("./maps/err/map1_err.cub", O_RDONLY);
 	cr_assert(ne(int, fd, -1));
-	cr_expect(eq(int, map_parser(fd), -1));
+	cr_expect(eq(int, map_parser(fd, &tab), -1));
 	cr_assert(ne(int, close(fd), -1));
 }
 
 Test(map_parser, parsing_map2_err)
 {
 	int	fd;
+	char **tab;
 
 	fd = open("./maps/err/map2_err.cub", O_RDONLY);
 	cr_assert(ne(int, fd, -1));
-	cr_expect(eq(int, map_parser(fd), -1));
+	cr_expect(eq(int, map_parser(fd, &tab), -1));
 	cr_assert(ne(int, close(fd), -1));
 }
 
 Test(map_parser, parsing_map5_err)
 {
 	int	fd;
+	char **tab;
 
 	fd = open("./maps/err/map5_err.cub", O_RDONLY);
 	cr_assert(ne(int, fd, -1));
-	cr_expect(eq(int, map_parser(fd), -1));
+	cr_expect(eq(int, map_parser(fd, &tab), -1));
 	cr_assert(ne(int, close(fd), -1));
 }
 
 Test(map_parser, parsing_map6_err)
 {
 	int	fd;
+	char **tab;
 
 	fd = open("./maps/err/map6_err.cub", O_RDONLY);
 	cr_assert(ne(int, fd, -1));
-	cr_expect(eq(int, map_parser(fd), -1));
+	cr_expect(eq(int, map_parser(fd, &tab), -1));
 	cr_assert(ne(int, close(fd), -1));
 }
 
 Test(map_parser, parsing_map7_err)
 {
 	int	fd;
+	char **tab;
 
 	fd = open("./maps/err/map7_err.cub", O_RDONLY);
 	cr_assert(ne(int, fd, -1));
-	cr_expect(eq(int, map_parser(fd), -1));
+	cr_expect(eq(int, map_parser(fd, &tab), -1));
 	cr_assert(ne(int, close(fd), -1));
 }
 
 Test(map_parser, parsing_map8_err)
 {
 	int	fd;
+	char **tab;
 
 	fd = open("./maps/err/map8_err.cub", O_RDONLY);
 	cr_assert(ne(int, fd, -1));
-	cr_expect(eq(int, map_parser(fd), -1));
+	cr_expect(eq(int, map_parser(fd, &tab), -1));
 	cr_assert(ne(int, close(fd), -1));
 }
 
 Test(map_parser, parsing_map9_err)
 {
 	int	fd;
+	char **tab;
 
 	fd = open("./maps/err/map9_err.cub", O_RDONLY);
 	cr_assert(ne(int, fd, -1));
-	cr_expect(eq(int, map_parser(fd), -1));
+	cr_expect(eq(int, map_parser(fd, &tab), -1));
 	cr_assert(ne(int, close(fd), -1));
 }
 
 Test(map_parser, parsing_map10_err)
 {
 	int	fd;
+	char **tab;
 
 	fd = open("./maps/err/map10_err.cub", O_RDONLY);
 	cr_assert(ne(int, fd, -1));
-	cr_expect(eq(int, map_parser(fd), -1));
+	cr_expect(eq(int, map_parser(fd, &tab), -1));
 	cr_assert(ne(int, close(fd), -1));
 }
 
 Test(map_parser, parsing_map11_err)
 {
 	int	fd;
+	char **tab;
 
 	fd = open("./maps/err/map11_err.cub", O_RDONLY);
 	cr_assert(ne(int, fd, -1));
-	cr_expect(eq(int, map_parser(fd), -1));
+	cr_expect(eq(int, map_parser(fd, &tab), -1));
 	cr_assert(ne(int, close(fd), -1));
 }
 
 Test(map_parser, parsing_map12_err)
 {
 	int	fd;
+	char **tab;
 
 	fd = open("./maps/err/map12_err.cub", O_RDONLY);
 	cr_assert(ne(int, fd, -1));
-	cr_expect(eq(int, map_parser(fd), -1));
+	cr_expect(eq(int, map_parser(fd, &tab), -1));
 	cr_assert(ne(int, close(fd), -1));
 }
 
 Test(map_parser, parsing_map13_err)
 {
 	int	fd;
+	char **tab;
 
 	fd = open("./maps/err/map13_err.cub", O_RDONLY);
 	cr_assert(ne(int, fd, -1));
-	cr_expect(eq(int, map_parser(fd), -1));
+	cr_expect(eq(int, map_parser(fd, &tab), -1));
 	cr_assert(ne(int, close(fd), -1));
 }
 
 Test(map_parser, parsing_map_work0)
 {
 	int	fd;
+	char **tab;
 
 	fd = open("./maps/map_work0.cub", O_RDONLY);
 	cr_assert(ne(int, fd, -1));
-	cr_expect(eq(int, map_parser(fd), 0));
+	cr_expect(eq(int, map_parser(fd, &tab), 0));
 	cr_assert(ne(int, close(fd), -1));
+	ft_retfree_tab(&tab, ft_len_tab((const char **)tab));
 }
 
 Test(map_parser, parsing_map_work1)
 {
 	int	fd;
+	char **tab;
 
 	fd = open("./maps/map_work1.cub", O_RDONLY);
 	cr_assert(ne(int, fd, -1));
-	cr_expect(eq(int, map_parser(fd), 0));
+	cr_expect(eq(int, map_parser(fd, &tab), 0));
 	cr_assert(ne(int, close(fd), -1));
+	ft_retfree_tab(&tab, ft_len_tab((const char **)tab));
 }
 
 Test(map_parser, parsing_map_work2)
 {
 	int	fd;
+	char **tab;
 
 	fd = open("./maps/map_work2.cub", O_RDONLY);
 	cr_assert(ne(int, fd, -1));
-	cr_expect(eq(int, map_parser(fd), -1));
+	cr_expect(eq(int, map_parser(fd, &tab), -1));
 	cr_assert(ne(int, close(fd), -1));
 }
 
 Test(map_parser, parsing_map_work4)
 {
 	int	fd;
+	char **tab;
 
 	fd = open("./maps/map_work4.cub", O_RDONLY);
 	cr_assert(ne(int, fd, -1));
-	cr_expect(eq(int, map_parser(fd), -1));
+	cr_expect(eq(int, map_parser(fd, &tab), -1));
 	cr_assert(ne(int, close(fd), -1));
 }
 
 Test(map_parser, parsing_map_work5)
 {
 	int	fd;
+	char **tab;
 
 	fd = open("./maps/map_work5.cub", O_RDONLY);
 	cr_assert(ne(int, fd, -1));
-	cr_expect(eq(int, map_parser(fd), 0));
+	cr_expect(eq(int, map_parser(fd, &tab), 0));
 	cr_assert(ne(int, close(fd), -1));
+	ft_retfree_tab(&tab, ft_len_tab((const char **)tab));
 }
 
 Test(map_parser, parsing_map_work3)
 {
 	int	fd;
+	char **tab;
 
 	fd = open("./maps/map_work3.cub", O_RDONLY);
 	cr_assert(ne(int, fd, -1));
-	cr_expect(eq(int, map_parser(fd), -1));
+	cr_expect(eq(int, map_parser(fd, &tab), -1));
 	cr_assert(ne(int, close(fd), -1));
 }
 

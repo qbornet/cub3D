@@ -75,10 +75,17 @@ int		*ft_free_ret_iptr(int *tab);
 // Free s and return NULL
 char	*ft_retfree_str(char **s);
 
+// Free tab of string and return NULL
+char	*ft_retfree_tab(char ***tab, size_t len);
+
 /* map_parser.c */
-// Check for valid map
-int		map_parser(int fd);
-// Check valid char in line & rm trailing \n from gnl
+// Return 0 if the map is valid or -1 if the map is not valid; The map is saved inside res if valid.
+int		map_parser(int fd, char ***res);
+
+// Current line check; if correct get_next_line else return -1
+int		set_line(char **l, char **l_bef, int *pos, int fd);
+
+// Check valid char in line && rm trailing \n from gnl
 char	*nrm_line(const char *s, int *pos);
 
 /* map_parser_utils.c */
@@ -95,7 +102,7 @@ char	*ft_rmt_chr(const char *s, char c);
 // Cpy len elts from tab to res
 int		ft_cpy_tab(const char **tab, char **res, size_t len);
 
-// Return tab len /!\ Do not use if no NULL inside tab /!\/
+// Return tab len /!\ Do not use if no NULL inside tab /!\.
 size_t	ft_len_tab(const char **tab);
 
 // Allocate a new tab, if s is not NULL place it at index 0 of the tab and NULL at index 1
@@ -103,5 +110,12 @@ char	**ft_new_tab(const char *s);
 
 // Return a tab of string updated with s at the end
 char	**ft_add_str(const char **tab, const char *s);
+
+/* map_parser_res.c */
+// Init res and return 0 else return -1
+char	**init_res(int fd, char **l, char **l_bef, int *pos);
+
+// Add valid line to res
+void	update_res_tab(char ***res, const char *s);
 
 #endif

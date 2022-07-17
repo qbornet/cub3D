@@ -45,7 +45,7 @@ char	*nrm_line(const char *s, int *pos)
 	return (NULL);
 }
 
-static int	set_line(char **l, char **l_bef, int *pos, int fd)
+int	set_line(char **l, char **l_bef, int *pos, int fd)
 {
 	char	*tmp;
 
@@ -86,28 +86,28 @@ static int	check_last_line(char **l_bef, int *pos)
 	return (0);
 }
 
-int	map_parser(int fd)
+int	map_parser(int fd, char ***res)
 {
 	int		pos;
 	char	*l;
 	char	*l_bef;
 
-	l_bef = NULL;
-	l = get_next_line(fd, BUFFER_SIZE);
-	if (!l)
+	*res = init_res(fd, &l, &l_bef, &pos);
+	if (!*res)
 		return (-1);
-	pos = 0;
-	if (set_line(&l, &l_bef, &pos, fd) < 0)
-		return (-1);
-	if (!l)
+	while (l)
 	{
-		free(l_bef);
+		if (set_line(&l, &l_bef, &pos, fd) < 0)
+		{
+			ft_retfree_tab(res, ft_len_tab((const char **)(*res)));
+			return (-1);
+		}
+		update_res_tab(res, (const char *)l_bef);
+	}
+	if (check_last_line(&l_bef, &pos) < 0)
+	{
+		ft_retfree_tab(res, ft_len_tab((const char **)(*res)));
 		return (-1);
 	}
-	while (l)
-		if (set_line(&l, &l_bef, &pos, fd) < 0)
-			return (-1);
-	if (check_last_line(&l_bef, &pos) < 0)
-		return (-1);
 	return (0);
 }

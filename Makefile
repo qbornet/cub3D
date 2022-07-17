@@ -18,6 +18,7 @@ PARSER := parser.c \
 		  ft_free_str.c \
 		  map_parser_utils.c \
 		  ft_str_tools.c \
+		  map_parser_res.c \
 		  ft_free_ret_iptr.c
 
 # --- [COMPILE] ---
