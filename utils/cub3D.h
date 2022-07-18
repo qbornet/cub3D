@@ -32,6 +32,7 @@ typedef struct s_data
 {
 	int		**colors;
 	char	**texture;
+	char	**map;
 }	t_data;
 
 /* parser.c */
