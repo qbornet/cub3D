@@ -19,13 +19,13 @@ PARSER := parser.c \
 		  map_parser_utils.c \
 		  ft_str_tools.c \
 		  map_parser_res.c \
-		  ft_free_ret_iptr.c
+		  ft_free_iptr.c
 
 # --- [COMPILE] ---
 
 TEST := test.c
 UTILS := $(UTILSDIR)$(addsufix .h, $(NAME))
-DEFINE :=-D MAIN=1
+DEFINE :=#-D MAIN=1
 
 CC := clang
 DFLAGS := -MMD -Wall -Werror -Wextra
