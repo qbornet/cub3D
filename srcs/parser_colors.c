@@ -34,7 +34,7 @@ int	*colors_atoi(char *str)
 	{
 		res = opt_colorsatoi(str, &i);
 		if (res > 255)
-			return (ft_free_ret_iptr(tab));
+			return (ft_retfree_iptr(tab));
 		tab[j++] = res;
 		while (str[i] && !ft_isdigit(str[i]))
 			i++;

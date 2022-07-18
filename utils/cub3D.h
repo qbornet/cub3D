@@ -32,6 +32,7 @@ typedef struct s_data
 {
 	int		**colors;
 	char	**texture;
+	char	**map;
 }	t_data;
 
 /* parser.c */
@@ -67,9 +68,9 @@ int		**get_colors(char *filename);
 // print and return value
 int		ft_retputstr_int(char *str, int fd, int exit_code);
 
-/* ft_free_ret_iptr.c */
+/* ft_free_iptr.c */
 // free a (int *) and return NULL
-int		*ft_free_ret_iptr(int *tab);
+int		*ft_retfree_iptr(int *tab);
 
 /* ft_free_str.c */
 // Free s and return NULL

@@ -1,11 +1,33 @@
 #include <cub3D.h>
 
+void	ft_print_ret(char **ret, int **colors)
+{
+	if (ret && *ret)
+	{
+		for (int i = 0; ret[i]; i++)
+			printf("|%s|\n", ret[i]);
+	}
+	if (colors && *colors)
+	{
+		for (int i = 0; colors[i]; i++)
+		{
+			printf("colors[%d]:\n", i);
+			for (int j = 0; j < 3; j++)
+				printf("[%d][%d]: %d\n", i, j, colors[i][j]);
+		}
+	}
+}
+
 #ifndef MAIN
 
 int	main(int ac, char **av)
 {
+	int		fd;
+	int		size;
 	int		**colors;
 	char	**texture;
+	char	**map;
+
 	if (ac > 2)
 		return (ft_retputstr_int("Error: too many arguments\n", 2, 0));
 	if (ac == 1)
@@ -18,24 +40,29 @@ int	main(int ac, char **av)
 	colors = get_colors(av[1]);
 	if (!colors)
 	{
-		for (int i = 0; texture[i]; i++)
-			free(texture[i]);
-		free(texture);
+		ft_retfree_tab(&texture, 4);
 		return (ft_retputstr_int("Error\nColors are not valid\n", 2, -1));
 	}
-	for (int i = 0; i < 2; i++)
+	fd = open(av[1], O_RDONLY | O_NOCTTY);
+	if (fd == -1)
+		return (-1);
+	if (map_parser(fd, &map) < 0)
 	{
-		printf("[%d]\n", i);
-		for (int j = 0; j < 3; j++)
-			printf("<%d>\n", colors[i][j]);
+		for (int i = 0; i < 2; i++)
+			free(colors[i]);
+		free(colors);
+		ft_retfree_tab(&texture, 4);
+		return (ft_retputstr_int("Error\nMap is invalid\n", 2, -1));
 	}
-	for (int i = 0; texture[i]; i++)
-		printf("%s\n", texture[i]);
-	for (int i = 0; texture[i]; i++)
-		free(texture[i]);
+	ft_print_ret(map, colors);
+	ft_print_ret(texture, NULL);
+	ft_retfree_tab(&texture, 4);
+	size = 0;
+	while (map[size])
+		size++;
+	ft_retfree_tab(&map, size);
 	for (int i = 0; i < 2; i++)
 		free(colors[i]);
-	free(texture);
 	free(colors);
 	return (0);
 }
