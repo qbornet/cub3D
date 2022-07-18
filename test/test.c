@@ -574,8 +574,9 @@ Test(map_parser, parsing_map_work4)
 
 	fd = open("./maps/map_work4.cub", O_RDONLY);
 	cr_assert(ne(int, fd, -1));
-	cr_expect(eq(int, map_parser(fd, &tab), -1));
+	cr_expect(eq(int, map_parser(fd, &tab), 0));
 	cr_assert(ne(int, close(fd), -1));
+	ft_retfree_tab(&tab, ft_len_tab((const char **)tab));
 }
 
 Test(map_parser, parsing_map_work5)
@@ -599,6 +600,29 @@ Test(map_parser, parsing_map_work3)
 	cr_assert(ne(int, fd, -1));
 	cr_expect(eq(int, map_parser(fd, &tab), -1));
 	cr_assert(ne(int, close(fd), -1));
+}
+
+Test(map_parser, parsing_gap)
+{
+	int	fd;
+	char **tab;
+
+	fd = open("./maps/gap.cub", O_RDONLY);
+	cr_assert(ne(int, fd, -1));
+	cr_expect(eq(int, map_parser(fd, &tab), -1));
+	cr_assert(ne(int, close(fd), -1));
+}
+
+Test(map_parser, parsing_gap1)
+{
+	int	fd;
+	char **tab;
+
+	fd = open("./maps/gap1.cub", O_RDONLY);
+	cr_assert(ne(int, fd, -1));
+	cr_expect(eq(int, map_parser(fd, &tab), 0));
+	cr_assert(ne(int, close(fd), -1));
+	ft_retfree_tab(&tab, ft_len_tab((const char **)tab));
 }
 
 Test(ft_tab, parsing)
