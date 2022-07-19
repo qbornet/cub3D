@@ -10,7 +10,15 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
-#define BUFFER_SIZE 10
+# include <mlx.h>
+# define BUFFER_SIZE 10
+# define W_KEY 119
+# define S_KEY 115
+# define A_KEY 97
+# define D_KEY 100
+# define ON_DESTROY 17
+# define WIDTH 1024
+# define HEIGHT 960
 
 enum e_colors_pos
 {
@@ -30,6 +38,8 @@ enum e_texture_pos
 
 typedef struct s_data
 {
+	void	*mlx;
+	void	*win;
 	int		**colors;
 	char	**texture;
 	char	**map;
@@ -51,6 +61,10 @@ int		ft_isspace(char c);
 
 // check if you didn't get symlink of /dev/random
 int		ft_valid_file(char *filename);
+
+/* start_window.c */
+// create a window 
+int		start_window(t_data **d_curr);
 
 /* opt_parser.c */
 // optimization for norm of colors_atoi fucntion
@@ -118,5 +132,9 @@ char	**init_res(int fd, char **l, char **l_bef, int *pos);
 
 // Add valid line to res
 void	update_res_tab(char ***res, const char *s);
+
+/* cub3D.c */
+// free frame and exit(0)
+int	free_all(t_data **d_curr);
 
 #endif

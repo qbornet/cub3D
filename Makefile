@@ -7,6 +7,7 @@ NAME := cub3D
 
 # File to create main
 SRCS := cub3D.c \
+		start_window.c \
 		ft_retputstr_int.c
 
 # File to create parser
@@ -21,17 +22,18 @@ PARSER := parser.c \
 		  map_parser_res.c \
 		  ft_free_ret_iptr.c
 
+
 # --- [COMPILE] ---
 
 TEST := test.c
 UTILS := $(UTILSDIR)$(addsufix .h, $(NAME))
-DEFINE :=-D MAIN=1
+DEFINE := #-D MAIN=1
 
 CC := clang
 DFLAGS := -MMD -Wall -Werror -Wextra
-CFLAGS :=  $(DFLAGS) $(DEFINE) -I ./utils -I ./test -I ./libft/includes -g3 -fsanitize=address
-CPPFLAGS := -L ./libft
-LDFLAGS := -lcriterion -lft
+CFLAGS :=  $(DFLAGS) $(DEFINE) -I ./mlx_linux -I ./utils -I ./test -I ./libft/includes -g3 -fsanitize=address
+CPPFLAGS := -L ./mlx_linux -L ./libft
+LDFLAGS := -lcriterion -lft -lmlx_linux -lXext -lX11
 
 # --- [DIR] ---
 
@@ -49,16 +51,18 @@ DEPS := $(OBJS:%.o=%.d)
 # --- [RULES] ---
 $(OBJSDIR)%.o: $(TESTDIR)%.c $(UTILS)
 	make -C ./libft
+	make -C ./mlx_linux
 	mkdir -p $(OBJSDIR) 2>&1 > /dev/null
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(OBJSDIR)%.o:	$(SRCSDIR)%.c $(UTILS)
 	make -C ./libft
+	make -C ./mlx_linux
 	mkdir -p $(OBJSDIR) 2>&1 > /dev/null
 	$(CC) $(CFLAGS) -c $< -o $@
 
 parser: $(OBJS) $(POBJS)
-	$(CC) $(CFLAGS) $(CPPFLAGS) $^ -o $@ -lft
+	$(CC) $(CFLAGS) $(CPPFLAGS) $^ -o $@ -lft -lmlx_linux -lXext -lX11
 
 test.out: $(OBJS) $(TOBJS) $(POBJS)
 	$(CC) $(CFLAGS) $(CPPFLAGS) $^ -o $@ $(LDFLAGS)
@@ -71,6 +75,7 @@ testclean:
 retest: testclean test.out
 
 clean:
+	make clean -C ./mlx_linux
 	rm -rf $(OBJSDIR)
 
 fclean: clean
