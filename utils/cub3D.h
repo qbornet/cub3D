@@ -45,6 +45,10 @@ typedef struct s_data
 	char	**map;
 }	t_data;
 
+/* print2d_map.c */
+// this will map in window
+int		print2d_map(t_data **d_curr);
+
 /* parser.c */
 // check if the extension is valid
 int		valid_name(char *str);

@@ -2,16 +2,16 @@
 
 void	ft_print_result(char **texture, int **colors)
 {
-	if (texture && *texture)
+	if (colors && *colors)
 	{
 		for (int i = 0; i < 2; i++)
 		{
 			printf("[%d]\n", i);
-			for (int j = 0; j < 3; j++)
+			for (int j = 0; colors[i][j] && j < 3; j++)
 				printf("<%d>\n", colors[i][j]);
 		}
 	}
-	if (colors && *colors)
+	if (texture && *texture)
 		for (int i = 0; texture[i]; i++)
 			printf("%s\n", texture[i]);
 }

@@ -1,47 +1,35 @@
 #include <cub3D.h>
 
-int	print_wall(t_data *frame, int mul)
+static int	print_sqr(int c, t_data *frame, int mul_i, int mul_j)
 {
 	int	i;
 	int	j;
 
-	i = 0;
-	while (++i < 64)
+	i = -1;
+	while (++i < 32)
 	{
-		j = 0;
-		while (++j < 64)
-			mlx_pixel_put(frame->mlx, frame->win, (mul * 64) + i, (mul * 64) + j, 0x00FF);
+		j = -1;
+		while (++j < 32)
+		{
+			if (c == '1')
+				mlx_pixel_put(frame->mlx, frame->win, (mul_i * 32) + i, (mul_j * 32) + j, 0x00FF);
+			else
+				mlx_pixel_put(frame->mlx, frame->win, (mul_i * 32) + i, (mul_j * 32) + j, 0x00808080);
+		}
 	}
-	return (0);
-}
-
-
-int	print_floor(t_data *frame, int mul)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (++i < 64)
+	i = -1;
+	while (++i < 16)
 	{
-		j = 0;
-		while (++j < 64)
-			mlx_pixel_put(frame->mlx, frame->win, (mul * 64) + i, (mul * 64) + j, 0x00FFFFFF);
+		j = -1;
+		while (++j < 16)
+		{
+			if (c == 'N'
+				|| c == 'S'
+				|| c == 'E'
+				|| c == 'W')
+				mlx_pixel_put(frame->mlx, frame->win, (mul_i * 36) + i, (mul_j * 36) + j, 0xFFFF00);
+		}
 	}
-	return (0);
-}
-
-int	print_sqr(int c, t_data *frame)
-{
-	static int	mul;
-
-	if (c == '1')
-		print_wall(frame, mul);
-	else if (c == '0'
-			|| c == 'N' || c == 'S'
-			|| c == 'E' || c == 'W')
-		print_floor(frame, mul);
-	mul++;
 	return (0);
 }
 
@@ -57,7 +45,7 @@ int	print2d_map(t_data **d_curr)
 	{
 		j = -1;
 		while (map[i][++j])
-			print_sqr(map[i][j], (*d_curr));
+			print_sqr(map[i][j], (*d_curr), j, i);
 	}
 	return (0);
 }
