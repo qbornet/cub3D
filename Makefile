@@ -30,7 +30,7 @@ RAYCAST := print2d_map.c
 
 TEST := test.c
 UTILS := $(UTILSDIR)$(addsufix .h, $(NAME))
-DEFINE := #-D MAIN=1
+DEFINE :=#-D MAIN=1
 
 CC := clang
 DFLAGS := -MMD -Wall -Werror -Wextra
