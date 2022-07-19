@@ -133,6 +133,9 @@ char	**init_res(int fd, char **l, char **l_bef, int *pos);
 // Add valid line to res
 void	update_res_tab(char ***res, const char *s);
 
+/* destroy_mlx.c */
+// use function to free and destroy win in mlx
+int		destroy_mlx(t_data **d_curr);
 /* cub3D.c */
 // free frame and exit(0)
 int	free_all(t_data **d_curr);

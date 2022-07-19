@@ -8,20 +8,23 @@ NAME := cub3D
 # File to create main
 SRCS := cub3D.c \
 		start_window.c \
+		destroy_mlx.c \
 		ft_retputstr_int.c
 
 # File to create parser
 PARSER := parser.c \
-		  parser_colors.c \
 		  opt_parser.c \
-		  ft_parser_utils.c \
 		  map_parser.c \
-		  ft_free_str.c \
-		  map_parser_utils.c \
-		  ft_str_tools.c \
+		  parser_colors.c \
 		  map_parser_res.c \
+		  map_parser_utils.c \
+		  ft_free_str.c \
+		  ft_str_tools.c \
+		  ft_parser_utils.c \
 		  ft_free_ret_iptr.c
 
+# File to create 2D raycast
+RAYCAST := print2d_map.c
 
 # --- [COMPILE] ---
 
@@ -46,6 +49,7 @@ TESTDIR := test/
 OBJS := $(SRCS:%.c=$(OBJSDIR)%.o)
 POBJS := $(PARSER:%.c=$(OBJSDIR)%.o)
 TOBJS := $(TEST:%.c=$(OBJSDIR)%.o)
+ROBJS := $(RAYCAST:%.c=$(OBJSDIR)%.o)
 DEPS := $(OBJS:%.o=%.d)
 
 # --- [RULES] ---
@@ -62,6 +66,9 @@ $(OBJSDIR)%.o:	$(SRCSDIR)%.c $(UTILS)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 parser: $(OBJS) $(POBJS)
+	$(CC) $(CFLAGS) $(CPPFLAGS) $^ -o $@ -lft -lmlx_linux -lXext -lX11
+
+raycast: $(OBJS) $(POBJS) $(ROBJS)
 	$(CC) $(CFLAGS) $(CPPFLAGS) $^ -o $@ -lft -lmlx_linux -lXext -lX11
 
 test.out: $(OBJS) $(TOBJS) $(POBJS)
