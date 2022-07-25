@@ -11,14 +11,15 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <mlx.h>
+# include <math.h>
 # define BUFFER_SIZE 10
 # define W_KEY 119
 # define S_KEY 115
 # define A_KEY 97
 # define D_KEY 100
 # define ON_DESTROY 17
-# define WIDTH 1024
-# define HEIGHT 960
+# define WIDTH 800
+# define HEIGHT 600
 
 enum e_colors_pos
 {
@@ -36,6 +37,37 @@ enum e_texture_pos
 	E_MAX_TEXTURE
 };
 
+/* Tout les vecteur fonctionne comme ca, x de droite (0 >) a gauche(0 <),
+ * y de bas(0 >) en haut (< 0).*/
+
+typedef struct s_ray
+{
+	int		mapx; // la position du ray dans la map
+	int		mapy; // la position du ray dans la map
+	int		stepx;
+	int		stepy;
+	int		lineheight;
+	int		drawstart;
+	int		drawend;
+	int		x;
+	int		hit;
+	int		side;
+	double	posx; // vecteur du joueur x
+	double	posy; // vecteur du joueur y
+	double	dirx; // vecteur de direction du joueur x
+	double	diry; // vecteur de direction du joueur y
+	double	planex; // vecteur du plan donne le FoV (Field Of View) x
+	double	planey; // vecteur du plan donne le FoV (Field Of View) y
+	double	camerax;  // donne la cordonner x de l'ecran (gauche = -1 millieux = 0 droite = 1)
+	double	raydirx; // calcul de la direction x du rayon
+	double	raydiry; // calcul de la direction y du rayon
+	double	sidedistx; // la distance que le rayon a parcourue depuis la position du debut sur l'axe x
+	double	sidedisty; // la distance que le rayon a parcourue depuis la position du debut sur l'axe y
+	double	dx; // delta de x la difference entre x et x1
+	double	dy; // delta de y la difference entre y et y1
+	double	perpwall; // distance du mur
+}	t_ray;
+
 typedef struct s_data
 {
 	void	*mlx;
@@ -43,7 +75,15 @@ typedef struct s_data
 	int		**colors;
 	char	**texture;
 	char	**map;
+	t_ray	ray;
 }	t_data;
+
+/* ft_conv.c */
+// take a radian as input and return it to degree format
+double	ft_rad2deg(double radians);
+
+// take a degree as input and return it to radian format
+double	ft_deg2rad(double degree);
 
 /* print2d_map.c */
 // this will map in window

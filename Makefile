@@ -24,7 +24,8 @@ PARSER := parser.c \
 		  ft_free_iptr.c
 
 # File to create 2D raycast
-RAYCAST := print2d_map.c
+RAYCAST := print2d_map.c \
+		   ft_conv.c
 
 # --- [COMPILE] ---
 
