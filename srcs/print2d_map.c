@@ -1,5 +1,6 @@
 #include <cub3D.h>
 
+/*
 static int	print_sqr(int c, t_data *frame, int mul_i, int mul_j)
 {
 	int	i;
@@ -30,23 +31,20 @@ static int	print_sqr(int c, t_data *frame, int mul_i, int mul_j)
 	}
 	return (0);
 }
+*/
 
-void	starting_pos(int x, int y, t_ray **r_curr)
+void	starting_pos(char c, int x, int y, t_ray *ray)
 {
-	t_ray	*ray;
-
-	ray = *r_curr;
-	if (map[i][j] == 'N'
-		|| map[i][j] == 'S'
-		|| map[i][j] == 'E'
-		|| map[i][j] == 'W')
+	if (c == 'N'
+		|| c == 'S'
+		|| c == 'E'
+		|| c == 'W')
 	{
-		ray->posx = x;
-		ray->posy = y;
+		ray->posx = (double)x;
+		ray->posy = (double)y;
 		ray->mapx = x;
 		ray->mapy = y;
 	}
-	*r_curr = ray;
 }
 
 /* Le plan doit toujours etre perpendiculaire a la direction,
@@ -55,29 +53,33 @@ void	starting_pos(int x, int y, t_ray **r_curr)
 
 /* TLDR; On doit avoir le plan et la direction dans la meme position */
 
-void	starting_value(char c, int x, int y, t_ray *ray)
+void	starting_value(char c, int x, int y, t_data **d_curr)
 {
-	starting_pos(x, y, &ray);
-	if (map[i][j] == 'N')
+	t_data	*frame;
+
+	frame = *d_curr;
+	starting_pos(c, x, y, &frame->ray);
+	if (c == 'N')
 	{
-		ray->diry = -1;
-		ray->planey = -0.66;
+		frame->ray.dirx = -1;
+		frame->ray.planey = 0.66;
 	}
-	else if (map[i][j] == 'S')
+	else if (c == 'S')
 	{
-		ray->diry = 1;
-		ray->planey = 0.66;
+		frame->ray.dirx = 1;
+		frame->ray.planey = -0.66;
 	}
-	else if (map[i][j] == 'E')
+	else if (c == 'E')
 	{
-		ray->dirx = 1;
-		ray->planex = 0.66;
+		frame->ray.diry = 1;
+		frame->ray.planex = 0.66;
 	}
-	else if (map[i][j] == 'W')
+	else if (c == 'W')
 	{
-		ray->dirx = -1;
-		ray->planex = -0.66;
+		frame->ray.diry = -1;
+		frame->ray.planex = -0.66;
 	}
+	*d_curr = frame;
 }
 
 int	print2d_map(t_data **d_curr)
@@ -92,10 +94,7 @@ int	print2d_map(t_data **d_curr)
 	{
 		j = -1;
 		while (map[i][++j])
-		{
-			print_sqr(map[i][j], (*d_curr), j, i);
-			starting_value(map[i][j], j, i, &(*d_curr)->ray);
-		}
+			starting_value(map[i][j], i, j, d_curr);
 	}
 	shot_ray(d_curr);
 	return (0);

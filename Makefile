@@ -25,6 +25,7 @@ PARSER := parser.c \
 
 # File to create 2D raycast
 RAYCAST := print2d_map.c \
+		   shot_ray.c \
 		   ft_conv.c
 
 # --- [COMPILE] ---

@@ -8,7 +8,8 @@ EA ./east_texture
 WE ./west_texture
 
 
-F		   0,		255,		255
+F		 10, 145 ,245 
+
 C				255			,		255			,			255
 
 111111111

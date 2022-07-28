@@ -16,15 +16,42 @@ void	opt_setdirection(char **t_curr, int direction)
 	*t_curr = to_find;
 }
 
+int	ft_check_numconv(int input)
+{
+	static int	in;
+
+	if (in > 3)
+		return (-1);
+	if (input)
+	{
+		in = 0;
+		return (0);
+	}
+	in++;
+	return (0);
+}
+
 int	opt_colorsatoi(char *str, int *i)
 {
 	int	res;
 
 	res = 0;
+	if (ft_check_numconv(0) < 0)
+		return (256);
 	while (str[*i] && (str[*i] >= '0' && str[*i] <= '9'))
 	{
 		res = res * 10 + (str[*i] - '0');
 		*i += 1;
 	}
 	return (res);
+}
+
+void	opt_check_commas(char *str, int *i, int *count)
+{
+	while (str[*i] && !ft_isdigit(str[*i]))
+	{
+		if (str[*i] == ',')
+			*count += 1;
+		*i += 1;
+	}
 }

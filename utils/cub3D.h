@@ -42,16 +42,16 @@ enum e_texture_pos
 
 typedef struct s_ray
 {
-	int		mapx; // la position du ray dans la map
-	int		mapy; // la position du ray dans la map
-	int		stepx;
-	int		stepy;
-	int		lineheight;
-	int		drawstart;
-	int		drawend;
-	int		x;
-	int		hit;
-	int		side;
+	int		mapx; // vecteur du joueur x en int
+	int		mapy; // vecteur du joueur y en int
+	int		stepx; // increntation donne la direction dans la quelle on va -1 ou 1 pour x
+	int		stepy; // increntation donne la direction dans la quelle on va -1 ou 1 pour y
+	int		lineheight; // la taille de la ligne a dessigner
+	int		drawstart; // la position de depart pour dessigner la ligne
+	int		drawend; // la position de fin pour dessigner la ligne
+	int		x; // le ray
+	int		hit; // si le ray a hit ou non
+	int		side; // pour differencier qu'elle coter c'est stoper sur le mur sidedistx/sidedisty
 	double	posx; // vecteur du joueur x
 	double	posy; // vecteur du joueur y
 	double	dirx; // vecteur de direction du joueur x
@@ -77,6 +77,10 @@ typedef struct s_data
 	char	**map;
 	t_ray	ray;
 }	t_data;
+
+/* shot_ray.c */
+// start raycasting
+void	shot_ray(t_data **d_curr);
 
 /* ft_conv.c */
 // take a radian as input and return it to degree format
@@ -111,11 +115,16 @@ int		ft_valid_file(char *filename);
 int		start_window(t_data **d_curr);
 
 /* opt_parser.c */
+// check for atoi if to many numbers are input or not enought input 1 reset to 0 the static
+int		ft_check_numconv(int input);
+
 // optimization for norm of colors_atoi fucntion
 int		opt_colorsatoi(char *str, int *i);
+void	opt_check_commas(char *str, int *i, int *count);
 
 // optimization for norm of select_direction function
 void	opt_setdirection(char **t_curr, int direction);
+
 
 /* parser_colors.c */
 // return tab with rgb colors of celling and floor
@@ -180,8 +189,9 @@ void	update_res_tab(char ***res, const char *s);
 /* destroy_mlx.c */
 // use function to free and destroy win in mlx
 int		destroy_mlx(t_data **d_curr);
+
 /* cub3D.c */
 // free frame and exit(0)
-int	free_all(t_data **d_curr);
+int		free_all(t_data **d_curr);
 
 #endif

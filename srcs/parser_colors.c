@@ -21,13 +21,15 @@ int	*colors_atoi(char *str)
 	int	i;
 	int	j;
 	int	res;
+	int	count;
 	int	*tab;
 
 	i = 0;
 	j = 0;
+	count = 0;
 	if (string_as_correct_data(str, &i) < 0)
 		return (NULL);
-	tab = malloc(sizeof(int) * 3);
+	tab = malloc(sizeof(int) * 4);
 	if (!tab)
 		return (NULL);
 	while (j < 3)
@@ -36,9 +38,10 @@ int	*colors_atoi(char *str)
 		if (res > 255)
 			return (ft_retfree_iptr(tab));
 		tab[j++] = res;
-		while (str[i] && !ft_isdigit(str[i]))
-			i++;
+		opt_check_commas(str, &i, &count);
 	}
+	if (count != 2 && ft_check_numconv(0) != -1)
+		return (ft_retfree_iptr(tab));
 	return (tab);
 }
 
@@ -96,6 +99,7 @@ int	*ft_get_colors(char *filename, int level)
 			break ;
 	}
 	close(fd);
+	ft_check_numconv(1);
 	return (tab);
 }
 
@@ -112,9 +116,9 @@ int	**get_colors(char *filename)
 		return (NULL);
 	tab[E_FLOOR] = ft_get_colors(filename, 'f');
 	tab[E_CELLING] = ft_get_colors(filename, 'c');
-	if (!tab[0] || !tab[1])
+	if (!tab[E_FLOOR] || !tab[E_CELLING])
 	{
-		while (++i < 2)
+		while (tab && ++i < 2)
 			free(tab[i]);
 		free(tab);
 		return (NULL);
