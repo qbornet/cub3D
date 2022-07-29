@@ -17,6 +17,8 @@
 # define S_KEY 115
 # define A_KEY 97
 # define D_KEY 100
+# define ON_KEYDOWN 2
+# define ON_RELEASE 3
 # define ON_DESTROY 17
 # define WIDTH 800
 # define HEIGHT 600
@@ -66,17 +68,34 @@ typedef struct s_ray
 	double	dx; // delta de x la difference entre x et x1
 	double	dy; // delta de y la difference entre y et y1
 	double	perpwall; // distance du mur
+	double	movespeed; // vitesse de deplacement
+	double	rotspeed; // vitesse de rotation
 }	t_ray;
 
 typedef struct s_data
 {
 	void	*mlx;
 	void	*win;
+	int		forward;
+	int		backward;
+	int		left;
+	int		right;
 	int		**colors;
 	char	**texture;
 	char	**map;
 	t_ray	ray;
 }	t_data;
+
+/* hook.c */
+// hook for mlx, when key is pressed
+int		move_down(int keycode, t_data **d_curr);
+
+// hook for mlx, when key is up
+int		move_release(int keycode, t_data **d_curr);
+
+/* ft_moves.c */
+// check if we needed to moves 
+void	ft_moves(t_data **d_curr)
 
 /* shot_ray.c */
 // start raycasting
