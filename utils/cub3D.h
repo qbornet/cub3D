@@ -17,6 +17,7 @@
 # define S_KEY 115
 # define A_KEY 97
 # define D_KEY 100
+# define ESC_KEY 65307
 # define ON_KEYDOWN 2
 # define ON_RELEASE 3
 # define ON_DESTROY 17
@@ -95,11 +96,11 @@ int		move_release(int keycode, t_data **d_curr);
 
 /* ft_moves.c */
 // check if we needed to moves 
-void	ft_moves(t_data **d_curr)
+void	ft_moves(t_data **d_curr);
 
 /* shot_ray.c */
 // start raycasting
-void	shot_ray(t_data **d_curr);
+int		shot_ray(t_data **d_curr);
 
 /* ft_conv.c */
 // take a radian as input and return it to degree format

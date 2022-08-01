@@ -9,7 +9,7 @@ void	draw_vertline(t_data **d_curr, t_ray ray)
 	}
 }
 
-void	shot_ray(t_data **d_curr)
+int	shot_ray(t_data **d_curr)
 {
 	int		i;
 	t_ray	ray;
@@ -88,4 +88,5 @@ void	shot_ray(t_data **d_curr)
 		(*d_curr)->ray = ray;
 		ft_moves(d_curr);
 	}
+	return (0);
 }

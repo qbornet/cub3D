@@ -11,23 +11,23 @@ static void	move_fb(t_data **d_curr)
 		return ;
 	if (frame->forward)
 	{
-		if (frame->map[int(ray.posx + ray.dirx * ray.movespeed)][int(ray.posy)] == '0')
+		if (frame->map[(int)(ray.posx + ray.dirx * ray.movespeed)][(int)ray.posy] == '0')
 			ray.posx += ray.dirx * ray.movespeed;
-		if (frame->map[int(ray.posx)][int(ray.posy + ray.diry * ray.movespeed)] == '0')
+		if (frame->map[(int)ray.posx][(int)(ray.posy + ray.diry * ray.movespeed)] == '0')
 			ray.posy += ray.diry * ray.movespeed;
 	}
 	else if (frame->backward)
 	{
-		if (frame->map[int(ray.posx - ray.dirx * ray.movespeed)][int(ray.posy)] == '0')
+		if (frame->map[(int)(ray.posx - ray.dirx * ray.movespeed)][(int)ray.posy] == '0')
 			ray.posx -= ray.dirx * ray.movespeed;
-		else if (frame->map[int(ray.posx)][int(ray.posy - ray.posy * ray.movespeed)] == '0')
+		else if (frame->map[(int)ray.posx][(int)(ray.posy - ray.posy * ray.movespeed)] == '0')
 			ray.posy -= ray.diry * ray.movespeed;
 	}
 	frame->ray = ray;
 	*d_curr = frame;
 }
 
-static void	moves_lr(t_data **d_curr)
+static void	move_lr(t_data **d_curr)
 {
 	t_ray	*ray;
 	double	old_dirx;

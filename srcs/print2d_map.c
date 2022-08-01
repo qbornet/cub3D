@@ -35,6 +35,8 @@ static int	print_sqr(int c, t_data *frame, int mul_i, int mul_j)
 
 void	starting_pos(char c, int x, int y, t_ray *ray)
 {
+	ray->movespeed = 0.1;
+	ray->rotspeed = 3.0;
 	if (c == 'N'
 		|| c == 'S'
 		|| c == 'E'
@@ -90,12 +92,12 @@ int	print2d_map(t_data **d_curr)
 
 	i = -1;
 	map = (*d_curr)->map;
+	ft_memset(&(*d_curr)->ray, 0, sizeof(t_ray));
 	while (map[++i])
 	{
 		j = -1;
 		while (map[i][++j])
 			starting_value(map[i][j], i, j, d_curr);
 	}
-	shot_ray(d_curr);
 	return (0);
 }
