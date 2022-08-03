@@ -15,8 +15,8 @@ int	start_window(t_data **d_curr)
 	print2d_map(&frame);
 	mlx_hook(frame->win, ON_DESTROY, 0, &free_all, &frame);
 	mlx_hook(frame->win, ON_KEYDOWN, (1L << 0), &move_down, &frame);
+	mlx_loop_hook(frame->mlx, &shot_ray, &frame);
 	mlx_hook(frame->win, ON_RELEASE, (1L << 1), &move_release, &frame);
-	mlx_loop_hook(frame->mlx, shot_ray, &frame);
 	mlx_loop(frame->mlx);
 	return (0);
 }

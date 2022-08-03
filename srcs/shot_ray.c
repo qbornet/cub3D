@@ -2,19 +2,31 @@
 
 void	draw_vertline(t_data **d_curr, t_ray ray)
 {
+	int	i;
+
+	i = 0;
+	while (i < ray.drawstart)
+	{
+		mlx_pixel_put((*d_curr)->mlx, (*d_curr)->win, ray.x, i, 0x0);
+		i++;
+	}
 	while (ray.drawstart < ray.drawend)
 	{
 		mlx_pixel_put((*d_curr)->mlx, (*d_curr)->win, ray.x, ray.drawstart, 0xFF);
 		ray.drawstart += 1;
 	}
+	i = ray.drawend;
+	while (i < HEIGHT)
+	{
+		mlx_pixel_put((*d_curr)->mlx, (*d_curr)->win, ray.x, i, 0x0);
+		i++;
+	}
 }
 
 int	shot_ray(t_data **d_curr)
 {
-	int		i;
 	t_ray	ray;
 
-	i = 0;
 	ray = (*d_curr)->ray;
 	while (ray.x < WIDTH)
 	{
@@ -86,7 +98,8 @@ int	shot_ray(t_data **d_curr)
 		ray.x += 1;
 		ray.hit = 0;
 		(*d_curr)->ray = ray;
-		ft_moves(d_curr);
 	}
+	(*d_curr)->ray.x = 0;
+	ft_moves(d_curr);
 	return (0);
 }

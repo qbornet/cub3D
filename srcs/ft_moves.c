@@ -7,8 +7,7 @@ static void	move_fb(t_data **d_curr)
 
 	frame = *d_curr;
 	ray = frame->ray;
-	if (frame->forward && frame->forward)
-		return ;
+	ray.movespeed = 0.1;
 	if (frame->forward)
 	{
 		if (frame->map[(int)(ray.posx + ray.dirx * ray.movespeed)][(int)ray.posy] == '0')
@@ -34,26 +33,24 @@ static void	move_lr(t_data **d_curr)
 	double	old_planex;
 
 	ray = &(*d_curr)->ray;
-	if ((*d_curr)->left && (*d_curr)->right)
-		return ;
+	ray->rotspeed = ft_deg2rad(0.33);
+	old_dirx = ray->dirx;
+	old_planex = ray->planex;
 	if ((*d_curr)->left)
 	{
-		old_dirx = ray->dirx;
 		ray->dirx = ray->dirx * cos(ray->rotspeed) - ray->diry * sin(ray->rotspeed);
 		ray->diry = old_dirx * sin(ray->rotspeed) + ray->diry * cos(ray->rotspeed);
-		old_planex = ray->planex;
 		ray->planex = ray->planex * cos(ray->rotspeed) - ray->planey * sin(ray->rotspeed);
 		ray->planey = old_planex * sin(ray->rotspeed) + ray->planey * cos(ray->rotspeed);
 	}
 	else if ((*d_curr)->right)
 	{
-		old_dirx = ray->dirx;
 		ray->dirx = ray->dirx * cos(-ray->rotspeed) - ray->diry * sin(-ray->rotspeed);
 		ray->diry = old_dirx * sin(-ray->rotspeed) + ray->diry * cos(-ray->rotspeed);
-		old_planex = ray->planex;
 		ray->planex = ray->planex * cos(-ray->rotspeed) - ray->planey * sin(-ray->rotspeed);
 		ray->planey = old_planex * sin(-ray->rotspeed) + ray->planey * cos(-ray->rotspeed);
 	}
+	(*d_curr)->ray = *ray;
 }
 
 void	ft_moves(t_data **d_curr)
