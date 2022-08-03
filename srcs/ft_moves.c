@@ -6,6 +6,8 @@ static void	move_fb(t_data **d_curr)
 	t_data	*frame;
 
 	frame = *d_curr;
+	if (frame->forward && frame->backward)
+		return ;
 	ray = frame->ray;
 	ray.movespeed = 0.1;
 	if (frame->forward)
@@ -19,7 +21,7 @@ static void	move_fb(t_data **d_curr)
 	{
 		if (frame->map[(int)(ray.posx - ray.dirx * ray.movespeed)][(int)ray.posy] == '0')
 			ray.posx -= ray.dirx * ray.movespeed;
-		else if (frame->map[(int)ray.posx][(int)(ray.posy - ray.posy * ray.movespeed)] == '0')
+		if (frame->map[(int)ray.posx][(int)(ray.posy - ray.diry * ray.movespeed)] == '0')
 			ray.posy -= ray.diry * ray.movespeed;
 	}
 	frame->ray = ray;
@@ -33,7 +35,9 @@ static void	move_lr(t_data **d_curr)
 	double	old_planex;
 
 	ray = &(*d_curr)->ray;
-	ray->rotspeed = ft_deg2rad(0.33);
+	if ((*d_curr)->left && (*d_curr)->right)
+		return ;
+	ray->rotspeed = ft_deg2rad(0.66);
 	old_dirx = ray->dirx;
 	old_planex = ray->planex;
 	if ((*d_curr)->left)
