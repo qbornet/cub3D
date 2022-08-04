@@ -9,7 +9,7 @@ static void	move_fb(t_data **d_curr)
 	if (frame->forward && frame->backward)
 		return ;
 	ray = frame->ray;
-	ray.movespeed = 0.1;
+	ray.movespeed = 0.05;
 	if (frame->forward)
 	{
 		if (frame->map[(int)(ray.posx + ray.dirx * ray.movespeed)][(int)ray.posy] == '0')
@@ -19,9 +19,9 @@ static void	move_fb(t_data **d_curr)
 	}
 	else if (frame->backward)
 	{
-		if (frame->map[(int)(ray.posx - ray.dirx * ray.movespeed)][(int)ray.posy] == '0')
+		if (!((ray.posx - ray.dirx * 0.05) < 0) && frame->map[(int)(ray.posx - ray.dirx * ray.movespeed)][(int)ray.posy] == '0')
 			ray.posx -= ray.dirx * ray.movespeed;
-		if (frame->map[(int)ray.posx][(int)(ray.posy - ray.diry * ray.movespeed)] == '0')
+		if (!((ray.posy - ray.diry * 0.05) < 0) && frame->map[(int)ray.posx][(int)(ray.posy - ray.diry * ray.movespeed)] == '0')
 			ray.posy -= ray.diry * ray.movespeed;
 	}
 	frame->ray = ray;
@@ -59,7 +59,15 @@ static void	move_lr(t_data **d_curr)
 
 void	ft_moves(t_data **d_curr)
 {
-	if ((*d_curr)->forward || (*d_curr)->backward)
+	if ((*d_curr)->forward && (*d_curr)->left)
+		move_crl_l(d_curr);
+	else if ((*d_curr)->forward && (*d_curr)->right)
+		move_crl_r(d_curr);
+	else if ((*d_curr)->backward && (*d_curr)->left)
+		move_bcrl_l(d_curr);
+	else if ((*d_curr)->backward && (*d_curr)->right)
+		move_bcrl_r(d_curr);
+	else if ((*d_curr)->forward || (*d_curr)->backward)
 		move_fb(d_curr);
 	else if ((*d_curr)->left || (*d_curr)->right)
 		move_lr(d_curr);

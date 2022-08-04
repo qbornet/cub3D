@@ -28,6 +28,7 @@ RAYCAST := ft_conv.c\
 		   ft_moves.c \
 		   hook.c \
 		   shot_ray.c \
+		   crl_move.c \
 		   print2d_map.c
 
 # --- [COMPILE] ---

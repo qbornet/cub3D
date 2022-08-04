@@ -46,7 +46,7 @@ int	shot_ray(t_data **d_curr)
 		if (ray.raydirx < 0)
 		{
 			ray.stepx = -1;
-			ray.sidedistx = (ray.posx - ray.mapx) * (ray.dx + 0.5);
+			ray.sidedistx = (ray.posx + 0.5 - ray.mapx) * ray.dx;
 		}
 		else
 		{
@@ -56,7 +56,7 @@ int	shot_ray(t_data **d_curr)
 		if (ray.raydiry < 0)
 		{
 			ray.stepy = -1;
-			ray.sidedisty = (ray.posy - ray.mapy) * (ray.dy + 0.5);
+			ray.sidedisty = (ray.posy + 0.5 - ray.mapy) * ray.dy;
 		}
 		else
 		{

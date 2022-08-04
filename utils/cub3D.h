@@ -84,6 +84,7 @@ typedef struct s_data
 	int		**colors;
 	char	**texture;
 	char	**map;
+	size_t	max_x;
 	t_ray	ray;
 }	t_data;
 
@@ -93,6 +94,19 @@ int		move_down(int keycode, t_data **d_curr);
 
 // hook for mlx, when key is up
 int		move_release(int keycode, t_data **d_curr);
+
+/* crl_move.c */
+// circule moves left
+void	move_crl_l(t_data **d_curr);
+
+// circule moves right
+void	move_crl_r(t_data **d_curr);
+
+// backward circule moves left
+void	move_bcrl_l(t_data **d_curr);
+
+// backward circule moves right
+void	move_bcrl_r(t_data **d_curr);
 
 /* ft_moves.c */
 // check if we needed to moves 
