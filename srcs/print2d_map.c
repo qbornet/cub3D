@@ -1,42 +1,7 @@
 #include <cub3D.h>
 
-/*
-static int	print_sqr(int c, t_data *frame, int mul_i, int mul_j)
-{
-	int	i;
-	int	j;
-	int	cellsize;
-
-	i = -1;
-	cellsize = 32;
-	while (++i < cellsize) 
-	{
-		j = -1;
-		while (++j < cellsize) {
-			if (i == cellsize - 1 || j == cellsize - 1)
-				continue ;
-			else if (c == '1')
-				mlx_pixel_put(frame->mlx, frame->win, (mul_i * 32) + i, (mul_j * 32) + j, 0x00FF);
-			else if (c != ' ')
-				mlx_pixel_put(frame->mlx, frame->win, (mul_i * 32) + i, (mul_j * 32) + j, 0x00808080);
-		}
-	}
-	i = -1;
-	while (++i < cellsize / 2)
-	{
-		j = -1;
-		while (++j < cellsize / 2)
-			if (c == 'N' || c == 'W' || c == 'E' || c == 'S')
-				mlx_pixel_put(frame->mlx, frame->win, (mul_i * 32) + i, (mul_j * 32) + j, 0xFFFF00);
-	}
-	return (0);
-}
-*/
-
 void	starting_pos(char c, int x, int y, t_ray *ray)
 {
-	ray->movespeed = 0.1;
-	ray->rotspeed = 3.0;
 	if (c == 'N'
 		|| c == 'S'
 		|| c == 'E'
@@ -84,6 +49,18 @@ void	starting_value(char c, int x, int y, t_data **d_curr)
 	*d_curr = frame;
 }
 
+void	set_colors(t_data **d_curr, int *celling, int *floor)
+{
+	(*d_curr)->fcolors = floor[2];
+	(*d_curr)->fcolors |= floor[1] << 8;
+	(*d_curr)->fcolors |= floor[0] << 16;
+	(*d_curr)->ccolors = celling[2];
+	(*d_curr)->ccolors |= celling[1] << 8;
+	(*d_curr)->ccolors |= celling[0] << 16;
+}
+
+
+
 int	print2d_map(t_data **d_curr)
 {
 	int		i;
@@ -93,6 +70,8 @@ int	print2d_map(t_data **d_curr)
 	i = -1;
 	map = (*d_curr)->map;
 	ft_memset(&(*d_curr)->ray, 0, sizeof(t_ray));
+	set_colors(d_curr, (*d_curr)->colors[E_CELLING], (*d_curr)->colors[E_FLOOR]);
+	i = -1;
 	while (map[++i])
 	{
 		j = -1;

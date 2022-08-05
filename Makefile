@@ -41,7 +41,7 @@ CC := clang
 DFLAGS := -MMD -Wall -Werror -Wextra
 CFLAGS :=  $(DFLAGS) $(DEFINE) -I ./mlx_linux -I ./utils -I ./test -I ./libft/includes -g3 -fsanitize=address
 CPPFLAGS := -L ./mlx_linux -L ./libft
-LDFLAGS := -lcriterion -lft -lmlx_Linux -lXext -lX11
+LDFLAGS := -lft -lmlx_Linux -lXext -lX11 -lm
 
 # --- [DIR] ---
 
@@ -71,10 +71,10 @@ $(OBJSDIR)%.o:	$(SRCSDIR)%.c $(UTILS)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 parser: $(OBJS) $(POBJS)
-	$(CC) $(CFLAGS) $(CPPFLAGS) $^ -o $@ -lft -lmlx_linux -lXext -lX11
+	$(CC) $(CFLAGS) $(CPPFLAGS) $^ -o $@ $(LDFLAGS) 
 
 raycast: $(OBJS) $(POBJS) $(ROBJS)
-	$(CC) $(CFLAGS) $(CPPFLAGS) $^ -o $@ -lft -lmlx_linux -lXext -lX11
+	$(CC) $(CFLAGS) $(CPPFLAGS) $^ -o $@ $(LDFLAGS)
 
 test.out: $(OBJS) $(TOBJS) $(POBJS)
 	$(CC) $(CFLAGS) $(CPPFLAGS) $^ -o $@ $(LDFLAGS)

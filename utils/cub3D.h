@@ -81,6 +81,8 @@ typedef struct s_data
 	int		backward;
 	int		left;
 	int		right;
+	int		fcolors;
+	int		ccolors;
 	int		**colors;
 	char	**texture;
 	char	**map;

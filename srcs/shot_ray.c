@@ -7,7 +7,7 @@ void	draw_vertline(t_data **d_curr, t_ray ray)
 	i = 0;
 	while (i < ray.drawstart)
 	{
-		mlx_pixel_put((*d_curr)->mlx, (*d_curr)->win, ray.x, i, 0x0);
+		mlx_pixel_put((*d_curr)->mlx, (*d_curr)->win, ray.x, i, (*d_curr)->ccolors);
 		i++;
 	}
 	while (ray.drawstart < ray.drawend)
@@ -18,7 +18,7 @@ void	draw_vertline(t_data **d_curr, t_ray ray)
 	i = ray.drawend;
 	while (i < HEIGHT)
 	{
-		mlx_pixel_put((*d_curr)->mlx, (*d_curr)->win, ray.x, i, 0x0);
+		mlx_pixel_put((*d_curr)->mlx, (*d_curr)->win, ray.x, i, (*d_curr)->fcolors);
 		i++;
 	}
 }
@@ -36,11 +36,11 @@ int	shot_ray(t_data **d_curr)
 		ray.mapx = (int)ray.posx;
 		ray.mapy = (int)ray.posy;
 		if (ray.raydirx == 0)
-			ray.dx = 1e30;
+			ray.dx = 0;
 		else
 			ray.dx = fabs(1 / ray.raydirx);
 		if (ray.raydiry == 0)
-			ray.dy = 1e30;
+			ray.dy = 0;
 		else
 			ray.dy = fabs(1 / ray.raydiry);
 		if (ray.raydirx < 0)
@@ -81,7 +81,7 @@ int	shot_ray(t_data **d_curr)
 			if ((*d_curr)->map[ray.mapx][ray.mapy] == '1')
 				ray.hit = 1;
 		}
-		if (!ray.side)
+		if (ray.side == 0)
 			ray.perpwall = (ray.sidedistx - ray.dx);
 		else
 			ray.perpwall = (ray.sidedisty - ray.dy);
