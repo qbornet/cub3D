@@ -73,6 +73,15 @@ typedef struct s_ray
 	double	rotspeed; // vitesse de rotation
 }	t_ray;
 
+typedef struct s_img
+{
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}	t_img;
+
 typedef struct s_data
 {
 	void	*mlx;
@@ -88,7 +97,12 @@ typedef struct s_data
 	char	**map;
 	size_t	max_x;
 	t_ray	ray;
+	t_img	data[E_MAX_TEXTURE];
 }	t_data;
+
+/* ft_pixel_put.c */
+// my own pixel put (faster compared to the one made for mlx)
+void	ft_pixel_put(t_img *data, int x, int y, int colors);
 
 /* hook.c */
 // hook for mlx, when key is pressed

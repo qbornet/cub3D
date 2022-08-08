@@ -7,18 +7,18 @@ void	draw_vertline(t_data **d_curr, t_ray ray)
 	i = 0;
 	while (i < ray.drawstart)
 	{
-		mlx_pixel_put((*d_curr)->mlx, (*d_curr)->win, ray.x, i, (*d_curr)->ccolors);
+		ft_pixel_put(&(*d_curr)->data[0], ray.x, i, (*d_curr)->ccolors);
 		i++;
 	}
 	while (ray.drawstart < ray.drawend)
 	{
-		mlx_pixel_put((*d_curr)->mlx, (*d_curr)->win, ray.x, ray.drawstart, 0xFF);
+		ft_pixel_put(&(*d_curr)->data[0], ray.x, ray.drawstart, 0xFF);
 		ray.drawstart += 1;
 	}
 	i = ray.drawend;
 	while (i < HEIGHT)
 	{
-		mlx_pixel_put((*d_curr)->mlx, (*d_curr)->win, ray.x, i, (*d_curr)->fcolors);
+		ft_pixel_put(&(*d_curr)->data[0], ray.x, i, (*d_curr)->fcolors);
 		i++;
 	}
 }
@@ -46,7 +46,7 @@ int	shot_ray(t_data **d_curr)
 		if (ray.raydirx < 0)
 		{
 			ray.stepx = -1;
-			ray.sidedistx = (ray.posx + 0.5 - ray.mapx) * ray.dx;
+			ray.sidedistx = (ray.posx - ray.mapx) * ray.dx;
 		}
 		else
 		{
@@ -56,7 +56,7 @@ int	shot_ray(t_data **d_curr)
 		if (ray.raydiry < 0)
 		{
 			ray.stepy = -1;
-			ray.sidedisty = (ray.posy + 0.5 - ray.mapy) * ray.dy;
+			ray.sidedisty = (ray.posy - ray.mapy) * ray.dy;
 		}
 		else
 		{
@@ -99,6 +99,7 @@ int	shot_ray(t_data **d_curr)
 		ray.hit = 0;
 		(*d_curr)->ray = ray;
 	}
+	mlx_put_image_to_window((*d_curr)->mlx, (*d_curr)->win, (*d_curr)->data[0].img, 0, 0);
 	(*d_curr)->ray.x = 0;
 	ft_moves(d_curr);
 	return (0);

@@ -1,15 +1,15 @@
 #include <cub3D.h>
 
-void	max_x(t_data **d_curr)
+void	set_data(t_data **d_curr)
 {
-	size_t	i;
+	t_img	img;
 
-	i = 0;
-	while ((*d_curr)->map[i])
-		i++;
-	(*d_curr)->max_x = i;
+	img = (*d_curr)->data[0];
 	(*d_curr)->ray.rotspeed = ft_deg2rad(0.22);
 	(*d_curr)->ray.movespeed = 0.05;
+	img.img = mlx_new_image((*d_curr)->mlx, WIDTH, HEIGHT);
+	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+	(*d_curr)->data[0] = img;
 }
 
 int	start_window(t_data **d_curr)
@@ -24,7 +24,7 @@ int	start_window(t_data **d_curr)
 	if (!frame->win)
 		return (-1);
 	ft_memset(&frame->ray, 0, sizeof(t_ray));
-	max_x(&frame);
+	set_data(&frame);
 	print2d_map(&frame);
 	mlx_hook(frame->win, ON_DESTROY, 0, &free_all, &frame);
 	mlx_hook(frame->win, ON_KEYDOWN, (1L << 0), &move_down, &frame);

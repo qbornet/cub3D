@@ -26,6 +26,7 @@ PARSER := parser.c \
 # File to create 2D raycast
 RAYCAST := ft_conv.c\
 		   ft_moves.c \
+		   ft_pixel_put.c \
 		   hook.c \
 		   shot_ray.c \
 		   crl_move.c \
