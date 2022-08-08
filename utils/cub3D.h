@@ -23,6 +23,8 @@
 # define ON_DESTROY 17
 # define WIDTH 800
 # define HEIGHT 600
+# define TEX_WIDTH 64
+# define TEX_HEIGHT 64
 
 enum e_colors_pos
 {
@@ -73,6 +75,11 @@ typedef struct s_ray
 	double	rotspeed; // vitesse de rotation
 }	t_ray;
 
+typedef struct s_tex
+{
+	unsigned int	buffer[HEIGHT][WIDTH];
+}	t_tex;
+
 typedef struct s_img
 {
 	void	*img;
@@ -80,6 +87,8 @@ typedef struct s_img
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+	int		height;
+	int		width;
 }	t_img;
 
 typedef struct s_data
@@ -98,6 +107,7 @@ typedef struct s_data
 	size_t	max_x;
 	t_ray	ray;
 	t_img	data[E_MAX_TEXTURE];
+	t_tex	tex;
 }	t_data;
 
 /* ft_pixel_put.c */
@@ -139,9 +149,9 @@ double	ft_rad2deg(double radians);
 // take a degree as input and return it to radian format
 double	ft_deg2rad(double degree);
 
-/* print2d_map.c */
-// this will map in window
-int		print2d_map(t_data **d_curr);
+/* start_dda.c */
+// set starting value needed for dda algo plus other value needed for raycasting
+int		setup_dda(t_data **d_curr);
 
 /* parser.c */
 // check if the extension is valid

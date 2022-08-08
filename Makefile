@@ -30,7 +30,7 @@ RAYCAST := ft_conv.c\
 		   hook.c \
 		   shot_ray.c \
 		   crl_move.c \
-		   print2d_map.c
+		   start_dda.c
 
 # --- [COMPILE] ---
 
