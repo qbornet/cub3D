@@ -32,13 +32,21 @@ int	shot_ray(t_data **d_curr)
 	t_data	*frame;
 
 	frame = *d_curr;
-	mlx_mouse_get_pos(frame->mlx, frame->win, &x, &y);
-	if (x == prev)
+
+	if (frame->mouse_move)
 	{
-		frame->left = 0;
-		frame->right = 0;
+		mlx_mouse_get_pos(frame->mlx, frame->win, &x, &y);
+		if (x == prev)
+		{
+			frame->left = 0;
+			frame->right = 0;
+		}
+		if (x == 0)
+			mlx_mouse_move(frame->mlx, frame->win, WIDTH - 1, y);
+		else if (x == WIDTH - 1)
+			mlx_mouse_move(frame->mlx, frame->win, 0, y);
+		prev = x;
 	}
-	prev = x;
 
 	ray = (*d_curr)->ray;
 	while (ray.x < WIDTH)

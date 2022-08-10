@@ -100,6 +100,7 @@ typedef struct s_data
 	size_t	max_x;
 	t_ray	ray;
 	t_img	data[E_MAX_TEXTURE];
+	int		mouse_move;
 }	t_data;
 
 /* ft_pixel_put.c */
