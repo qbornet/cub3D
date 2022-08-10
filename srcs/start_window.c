@@ -12,6 +12,24 @@ void	set_data(t_data **d_curr)
 	(*d_curr)->data[0] = img;
 }
 
+static int	mouse_leave_screen(int x, int y, t_data **d_curr)
+{
+	t_data	*frame;
+
+	frame = *d_curr;
+	if (!frame->mouse_move)
+		return (0);
+	if (x > WIDTH - 1)
+		mlx_mouse_move(frame->mlx, frame->win, 0, y);
+	else if (x < 0)
+		mlx_mouse_move(frame->mlx, frame->win, WIDTH - 1, y);
+	else if (y > HEIGHT - 1)
+		mlx_mouse_move(frame->mlx, frame->win, x, 0);
+	else if (y < 0)
+		mlx_mouse_move(frame->mlx, frame->win, x, HEIGHT - 1);
+	return (0);
+}
+
 int	start_window(t_data **d_curr)
 {
 	t_data	*frame;
@@ -27,6 +45,7 @@ int	start_window(t_data **d_curr)
 	set_data(&frame);
 	print2d_map(&frame);
 	mlx_hook(frame->win, ON_MOUSEMOVE, (1L << 6), &mouse_move, &frame);
+	mlx_hook(frame->win, 8, (1L << 5), &mouse_leave_screen, &frame);
 	mlx_hook(frame->win, ON_DESTROY, 0, &free_all, &frame);
 	mlx_hook(frame->win, ON_KEYDOWN, (1L << 0), &move_down, &frame);
 	mlx_loop_hook(frame->mlx, &shot_ray, &frame);

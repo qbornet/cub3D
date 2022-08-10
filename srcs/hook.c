@@ -10,12 +10,10 @@ int	move_down(int keycode, t_data **d_curr)
 	if (keycode == M_KEY)
 	{
 		frame->mouse_move = !frame->mouse_move;
-		/*
 		if (frame->mouse_move)
 			mlx_mouse_hide(frame->mlx, frame->win);
 		else
 			mlx_mouse_show(frame->mlx, frame->win);
-			*/
 	}
 	if (keycode == W_KEY)
 		frame->forward = 1;
@@ -56,13 +54,10 @@ int	move_release(int keycode, t_data **d_curr)
 int	mouse_move(int x, int y, t_data **d_curr)
 {
 	static int prev = 0;
-
 	t_data	*frame;
-	(void)x;
+
 	(void)y;
 	frame = *d_curr;
-	(void)frame;
-
 	if (!frame->mouse_move)
 		return (0);
 	if (prev > x)

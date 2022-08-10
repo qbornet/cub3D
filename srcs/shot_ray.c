@@ -41,10 +41,6 @@ int	shot_ray(t_data **d_curr)
 			frame->left = 0;
 			frame->right = 0;
 		}
-		if (x == 0)
-			mlx_mouse_move(frame->mlx, frame->win, WIDTH - 1, y);
-		else if (x == WIDTH - 1)
-			mlx_mouse_move(frame->mlx, frame->win, 0, y);
 		prev = x;
 	}
 
