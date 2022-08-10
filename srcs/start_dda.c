@@ -59,12 +59,17 @@ static void	starting_value(char c, int x, int y, t_data **d_curr)
 
 static void	set_colors(t_data **d_curr, int *celling, int *floor)
 {
+	t_img	buffer;
+
+	buffer = (*d_curr)->buffer;
 	(*d_curr)->fcolors = floor[2];
 	(*d_curr)->fcolors |= floor[1] << 8;
 	(*d_curr)->fcolors |= floor[0] << 16;
 	(*d_curr)->ccolors = celling[2];
 	(*d_curr)->ccolors |= celling[1] << 8;
 	(*d_curr)->ccolors |= celling[0] << 16;
+	buffer.img = mlx_new_image((*d_curr)->mlx, WIDTH, HEIGHT);
+	buffer.addr =  mlx_get_data_addr(buffer.img, &buffer.bits_per_pixel, &buffer.line_length, &buffer.endian);
 }
 
 

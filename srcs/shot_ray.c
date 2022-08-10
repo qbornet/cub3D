@@ -1,26 +1,62 @@
 #include <cub3D.h>
 
-void	draw_vertline(t_data **d_curr, t_ray ray)
+void	setup_texture(t_data **d_curr, t_ray ray)
 {
-	int	i;
+	t_tex	tex;
 
-	i = 0;
-	while (i < ray.drawstart)
+	tex = (*d_curr)->tex;
+	if (ray.side == 0 && ray.raydirx < 0)
+		tex.texdir = 0;
+	else if (ray.side == 0 && ray.raydirx >= 0)
+		tex.texdir = 1;
+	else if (ray.side == 1 && ray.raydiry < 0)
+		tex.texdir = 2;
+	else if (ray.side == 1 && ray.raydiry >= 0)
+		tex.texdir = 3;
+	if (ray.side == 0)
+		tex.wallx = ray.posx + ray.perpwall * ray.raydirx;
+	else
+		tex.wallx = ray.posy + ray.perpwall * ray.raydiry;
+	tex.wallx -= floor(tex.wallx);
+	(*d_curr)->tex = tex;
+}
+
+void	draw_texture(t_data **d_curr, t_ray ray, int y)
+{
+	t_data	*f;
+
+	setup_texture(d_curr, ray);
+	y = ray.drawstart - 1;
+	f = *d_curr;
+	f->tex.step = 1.0 * f->data[f->tex.texdir].height / ray.lineheight;
+	f->tex.texx = (int)(f->tex.wallx * (double)f->data[f->tex.texdir].width);
+	if (ray.side == 0 && ray.raydirx > 0)
+		f->tex.texx = f->data[f->tex.texdir].width - f->tex.texx - 1;
+	if (ray.side == 1 && ray.raydiry < 0)
+		f->tex.texx = f->data[f->tex.texdir].width - f->tex.texx - 1;
+	f->tex.texpos = (ray.drawstart - HEIGHT / 2 + ray.lineheight / 2) * f->tex.step;
+	while (++y <= ray.drawend)
 	{
-		ft_pixel_put(&(*d_curr)->data[0], ray.x, i, (*d_curr)->ccolors);
-		i++;
+		f->tex.texy = (int)f->tex.texpos & (f->data[f->tex.texdir].height - 1);
+		f->tex.texpos += f->tex.step;
+		if (ray.x < WIDTH && y < HEIGHT)
+			f->buffer.addr[y * f->buffer.line_length / 4 + ray.x] = f->data[f->tex.texdir].addr[f->tex.texy * f->data[f->tex.texdir].line_length / 4 + f->tex.texx];
 	}
-	while (ray.drawstart < ray.drawend)
-	{
-		ft_pixel_put(&(*d_curr)->data[0], ray.x, ray.drawstart, 0xFF);
-		ray.drawstart += 1;
-	}
-	i = ray.drawend;
-	while (i < HEIGHT)
-	{
-		ft_pixel_put(&(*d_curr)->data[0], ray.x, i, (*d_curr)->fcolors);
-		i++;
-	}
+	*d_curr = f;
+}
+
+void	draw_column(t_data **d_curr, t_ray ray)
+{
+	int		i;
+
+	i = -1;
+	while (++i < ray.drawstart)
+		ft_pixel_put(&(*d_curr)->buffer, ray.x, i, (*d_curr)->ccolors);
+	if (i <= ray.drawend)
+		draw_texture(d_curr, ray, i);
+	i = ray.drawend - 1;
+	while (++i < HEIGHT)
+		ft_pixel_put(&(*d_curr)->buffer, ray.x, i, (*d_curr)->fcolors);
 }
 
 int	shot_ray(t_data **d_curr)
@@ -94,12 +130,12 @@ int	shot_ray(t_data **d_curr)
 		ray.drawend = ray.lineheight / 2 + HEIGHT / 2;
 		if (ray.drawend >= HEIGHT || ray.drawend < 0)
 			ray.drawend = HEIGHT - 1;
-		draw_vertline(d_curr, ray);
+		draw_column(d_curr, ray);
 		ray.x += 1;
 		ray.hit = 0;
 		(*d_curr)->ray = ray;
 	}
-	mlx_put_image_to_window((*d_curr)->mlx, (*d_curr)->win, (*d_curr)->data[0].img, 0, 0);
+	mlx_put_image_to_window((*d_curr)->mlx, (*d_curr)->win, (*d_curr)->buffer.img, 0, 0);
 	(*d_curr)->ray.x = 0;
 	ft_moves(d_curr);
 	return (0);

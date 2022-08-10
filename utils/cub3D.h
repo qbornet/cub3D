@@ -77,7 +77,12 @@ typedef struct s_ray
 
 typedef struct s_tex
 {
-	unsigned int	buffer[HEIGHT][WIDTH];
+	int				texdir; // direction NO S EA WE de la texture
+	int				texx; // position x de la texture
+	int				texy; // position y de la texture
+	double			wallx; // side == 1 position x  side == 0 position y ou le mur a etait toucher
+	double			step; // incrementation par pixel
+	double			texpos; // position de la texture
 }	t_tex;
 
 typedef struct s_img
@@ -106,8 +111,9 @@ typedef struct s_data
 	char	**map;
 	size_t	max_x;
 	t_ray	ray;
-	t_img	data[E_MAX_TEXTURE];
 	t_tex	tex;
+	t_img	data[E_MAX_TEXTURE]; // les textures
+	t_img	buffer; // l'image qui permet d'afficher le resultat
 }	t_data;
 
 /* ft_pixel_put.c */
