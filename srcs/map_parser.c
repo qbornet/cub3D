@@ -94,20 +94,14 @@ int	map_parser(int fd, char ***res)
 
 	*res = init_res(fd, &l, &l_bef, &pos);
 	if (!*res)
-		return (-1);
+		return (ft_clear_map_parser(fd, NULL));
 	while (l)
 	{
 		if (set_line(&l, &l_bef, &pos, fd) < 0)
-		{
-			ft_retfree_tab(res, ft_len_tab((const char **)(*res)));
-			return (-1);
-		}
+			return (ft_clear_map_parser(fd, res));
 		update_res_tab(res, (const char *)l_bef);
 	}
 	if (check_last_line(&l_bef, &pos) < 0)
-	{
-		ft_retfree_tab(res, ft_len_tab((const char **)(*res)));
-		return (-1);
-	}
+		return (ft_clear_map_parser(fd, res));
 	return (0);
 }

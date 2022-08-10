@@ -67,3 +67,18 @@ void	update_res_tab(char ***res, const char *s)
 	*res = ft_add_str((const char **)tmp, s);
 	ft_retfree_tab(&tmp, ft_len_tab((const char **)tmp));
 }
+
+int	ft_clear_map_parser(int fd, char ***res)
+{
+	char	*l;
+
+	l = get_next_line(fd, BUFFER_SIZE);
+	while (l)
+	{
+		free(l);
+		l = get_next_line(fd, BUFFER_SIZE);
+	}
+	if (res)
+		ft_retfree_tab(res, ft_len_tab((const char **)(*res)));
+	return (-1);
+}

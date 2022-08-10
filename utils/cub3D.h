@@ -232,6 +232,8 @@ char	**ft_add_str(const char **tab, const char *s);
 /* map_parser_res.c */
 // Init res and return 0 else return -1
 char	**init_res(int fd, char **l, char **l_bef, int *pos);
+// return -1 free everything and read all the file until the end (leaks on gnl if not)
+int		ft_clear_map_parser(int fd, char ***res);
 
 // Add valid line to res
 void	update_res_tab(char ***res, const char *s);
