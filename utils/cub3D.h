@@ -88,7 +88,7 @@ typedef struct s_tex
 typedef struct s_img
 {
 	void	*img;
-	char	*addr;
+	int		*addr;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;

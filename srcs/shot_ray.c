@@ -28,7 +28,7 @@ void	draw_texture(t_data **d_curr, t_ray ray, int y)
 	setup_texture(d_curr, ray);
 	y = ray.drawstart - 1;
 	f = *d_curr;
-	f->tex.step = 1.0 * f->data[f->tex.texdir].height / ray.lineheight;
+	f->tex.step = 1.0 * f->data[0].height / ray.lineheight;
 	f->tex.texx = (int)(f->tex.wallx * (double)f->data[f->tex.texdir].width);
 	if (ray.side == 0 && ray.raydirx > 0)
 		f->tex.texx = f->data[f->tex.texdir].width - f->tex.texx - 1;
@@ -39,7 +39,7 @@ void	draw_texture(t_data **d_curr, t_ray ray, int y)
 	{
 		f->tex.texy = (int)f->tex.texpos & (f->data[f->tex.texdir].height - 1);
 		f->tex.texpos += f->tex.step;
-		if (ray.x < WIDTH && y < HEIGHT)
+		if (y < HEIGHT && ray.x < WIDTH)
 			f->buffer.addr[y * f->buffer.line_length / 4 + ray.x] = f->data[f->tex.texdir].addr[f->tex.texy * f->data[f->tex.texdir].line_length / 4 + f->tex.texx];
 	}
 	*d_curr = f;
@@ -50,6 +50,7 @@ void	draw_column(t_data **d_curr, t_ray ray)
 	int		i;
 
 	i = -1;
+	ray.drawend = HEIGHT - ray.drawstart;
 	while (++i < ray.drawstart)
 		ft_pixel_put(&(*d_curr)->buffer, ray.x, i, (*d_curr)->ccolors);
 	if (i <= ray.drawend)
@@ -62,8 +63,15 @@ void	draw_column(t_data **d_curr, t_ray ray)
 int	shot_ray(t_data **d_curr)
 {
 	t_ray	ray;
+	t_img	buffer;
 
 	ray = (*d_curr)->ray;
+	buffer = (*d_curr)->buffer;
+	buffer.img = mlx_new_image((*d_curr)->mlx, WIDTH, HEIGHT);
+	if (!buffer.img)
+		return (ft_retputstr_int("Error\nCreation of buffer image\n", 2, -1) && free_all(d_curr));
+	buffer.addr = (int *)mlx_get_data_addr(buffer.img, &buffer.bits_per_pixel, &buffer.line_length, &buffer.endian);
+	(*d_curr)->buffer = buffer;
 	while (ray.x < WIDTH)
 	{
 		ray.camerax = 2 * ray.x / (double)WIDTH - 1;
@@ -137,6 +145,7 @@ int	shot_ray(t_data **d_curr)
 	}
 	mlx_put_image_to_window((*d_curr)->mlx, (*d_curr)->win, (*d_curr)->buffer.img, 0, 0);
 	(*d_curr)->ray.x = 0;
+	mlx_destroy_image((*d_curr)->mlx, (*d_curr)->buffer.img);
 	ft_moves(d_curr);
 	return (0);
 }

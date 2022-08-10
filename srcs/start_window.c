@@ -1,28 +1,5 @@
 #include <cub3D.h>
 
-static int	set_texture(t_data **d_curr)
-{
-	int	i;
-	t_img	img;
-	t_data	*frame;
-
-	i = -1;
-	frame = *d_curr;
-	while (++i < E_MAX_TEXTURE)
-	{
-		img = frame->data[i];
-		img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
-		if (!img.addr)
-		{
-			ft_putstr_fd("Error\nTexture file is incorrect\n", 2);
-			return (-1);
-		}
-		frame->data[i] = img;
-	}
-	*d_curr = frame;
-	return (0);
-}
-
 static int	set_data(t_data **d_curr)
 {
 	int		i;
@@ -42,10 +19,11 @@ static int	set_data(t_data **d_curr)
 			ft_putstr_fd("Error\nTexture file is incorrect\n", 2);
 			return (-1);
 		}
+		img.addr = (int *)mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
 		frame->data[i] = img;
 	}
 	*d_curr = frame;
-	return (set_texture(d_curr));
+	return (0);
 }
 
 int	start_window(t_data **d_curr)
