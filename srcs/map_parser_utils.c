@@ -9,7 +9,7 @@ int	ft_is_sta_pos(char c)
 
 static int	is_inv_pos(const char *s1, const char *s2, size_t i, size_t len)
 {
-	if ((i - 1 >= 0 && ft_isspace(s1[i - 1]))
+	if (ft_isspace(s1[i - 1])
 		|| (s1[i + 1] && ft_isspace(s1[i + 1])) || i >= len)
 		return (-1);
 	if (i >= len || ft_isspace(s2[i]))
