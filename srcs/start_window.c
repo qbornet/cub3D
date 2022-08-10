@@ -26,6 +26,7 @@ int	start_window(t_data **d_curr)
 	ft_memset(&frame->ray, 0, sizeof(t_ray));
 	set_data(&frame);
 	print2d_map(&frame);
+	mlx_hook(frame->win, ON_MOUSEMOVE, (1L << 6), &mouse_move, &frame);
 	mlx_hook(frame->win, ON_DESTROY, 0, &free_all, &frame);
 	mlx_hook(frame->win, ON_KEYDOWN, (1L << 0), &move_down, &frame);
 	mlx_loop_hook(frame->mlx, &shot_ray, &frame);

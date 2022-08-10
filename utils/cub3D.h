@@ -13,6 +13,7 @@
 # include <mlx.h>
 # include <math.h>
 # define BUFFER_SIZE 10
+# define M_KEY 109
 # define W_KEY 119
 # define S_KEY 115
 # define A_KEY 97
@@ -20,6 +21,7 @@
 # define ESC_KEY 65307
 # define ON_KEYDOWN 2
 # define ON_RELEASE 3
+# define ON_MOUSEMOVE 6
 # define ON_DESTROY 17
 # define WIDTH 800
 # define HEIGHT 600
@@ -110,6 +112,9 @@ int		move_down(int keycode, t_data **d_curr);
 
 // hook for mlx, when key is up
 int		move_release(int keycode, t_data **d_curr);
+
+// hook for mlx, when mouse moving
+int	mouse_move(int x, int y, t_data **d_curr);
 
 /* crl_move.c */
 // circule moves left

@@ -26,6 +26,19 @@ void	draw_vertline(t_data **d_curr, t_ray ray)
 int	shot_ray(t_data **d_curr)
 {
 	t_ray	ray;
+	static int	prev = 0;
+	int	x;
+	int	y;
+	t_data	*frame;
+
+	frame = *d_curr;
+	mlx_mouse_get_pos(frame->mlx, frame->win, &x, &y);
+	if (x == prev)
+	{
+		frame->left = 0;
+		frame->right = 0;
+	}
+	prev = x;
 
 	ray = (*d_curr)->ray;
 	while (ray.x < WIDTH)
