@@ -100,7 +100,7 @@ typedef struct s_data
 	size_t	max_x;
 	t_ray	ray;
 	t_img	data[E_MAX_TEXTURE];
-	int		mouse_move;
+	int		mouse_mode;
 }	t_data;
 
 /* ft_pixel_put.c */
@@ -251,5 +251,8 @@ int		destroy_mlx(t_data **d_curr);
 /* cub3D.c */
 // free frame and exit(0)
 int		free_all(t_data **d_curr);
+
+/* ft_moves_mouse.c */
+void	ft_moves_mouse(t_data **d_curr, int x);
 
 #endif

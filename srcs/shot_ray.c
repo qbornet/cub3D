@@ -33,14 +33,11 @@ int	shot_ray(t_data **d_curr)
 
 	frame = *d_curr;
 
-	if (frame->mouse_move)
+	if (frame->mouse_mode)
 	{
 		mlx_mouse_get_pos(frame->mlx, frame->win, &x, &y);
-		if (x == prev)
-		{
-			frame->left = 0;
+		if (prev == x)
 			frame->right = 0;
-		}
 		prev = x;
 	}
 
@@ -118,6 +115,9 @@ int	shot_ray(t_data **d_curr)
 	}
 	mlx_put_image_to_window((*d_curr)->mlx, (*d_curr)->win, (*d_curr)->data[0].img, 0, 0);
 	(*d_curr)->ray.x = 0;
-	ft_moves(d_curr);
+	if (!frame->mouse_mode)
+		ft_moves(d_curr);
+	else
+		ft_moves_mouse(d_curr, x);
 	return (0);
 }

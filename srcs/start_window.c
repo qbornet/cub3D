@@ -17,7 +17,7 @@ static int	mouse_leave_screen(int x, int y, t_data **d_curr)
 	t_data	*frame;
 
 	frame = *d_curr;
-	if (!frame->mouse_move)
+	if (!frame->mouse_mode)
 		return (0);
 	if (x > WIDTH - 1)
 		mlx_mouse_move(frame->mlx, frame->win, 0, y);

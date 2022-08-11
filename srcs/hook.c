@@ -9,17 +9,13 @@ int	move_down(int keycode, t_data **d_curr)
 		free_all(d_curr);
 	if (keycode == M_KEY)
 	{
-		frame->mouse_move = !frame->mouse_move;
-		if (frame->mouse_move)
-			mlx_mouse_hide(frame->mlx, frame->win);
-		else
-			mlx_mouse_show(frame->mlx, frame->win);
+		frame->mouse_mode = !frame->mouse_mode;
 	}
 	if (keycode == W_KEY)
 		frame->forward = 1;
 	if (keycode == S_KEY)
 		frame->backward = 1;
-	if (!frame->mouse_move)
+	if (!frame->mouse_mode)
 	{
 		if (keycode == D_KEY)
 			frame->right = 1;
@@ -40,7 +36,7 @@ int	move_release(int keycode, t_data **d_curr)
 		frame->forward = 0;
 	if (keycode == S_KEY)
 		frame->backward = 0;
-	if (!frame->mouse_move)
+	if (!frame->mouse_mode)
 	{
 		if (keycode == A_KEY)
 			frame->left = 0;
@@ -51,25 +47,16 @@ int	move_release(int keycode, t_data **d_curr)
 	return (0);
 }
 
-int	mouse_move(int x, int y, t_data **d_curr)
+int mouse_move(int x, int y, t_data **d_curr)
 {
-	static int prev = 0;
 	t_data	*frame;
 
 	(void)y;
+	(void)x;
 	frame = *d_curr;
-	if (!frame->mouse_move)
+	(void)frame;
+	if (!frame->mouse_mode)
 		return (0);
-	if (prev > x)
-	{
-		frame->left = 1;
-		frame->right = 0;
-	}
-	else if (prev < x)
-	{
-		frame->right = 1;
-		frame->left = 0;
-	}
-	prev = x;
+	frame->right = 1;
 	return (0);
 }
