@@ -59,7 +59,10 @@ int	frame_alloc(t_data **d_curr, char *filename)
 	if (fd == -1)
 		return (ft_retputstr_int("Error\nNot valide filename\n", 2, -1));
 	if (map_parser(fd, &(*d_curr)->map) < 0)
+	{
+		close(fd);
 		return (ft_retputstr_int("Error\nMap is invalid\n", 2, -1));
+	}
 	close(fd);
 	return (0);
 }
