@@ -13,13 +13,15 @@ static int	set_data(t_data **d_curr)
 	while (++i < E_MAX_TEXTURE)
 	{
 		img = frame->data[i];
-		img.img = mlx_xpm_file_to_image(frame->mlx, frame->texture[i], &img.width, &img.height);
+		img.img = mlx_xpm_file_to_image(\
+				frame->mlx, frame->texture[i], &img.width, &img.height);
 		if (!img.img)
 		{
 			ft_putstr_fd("Error\nTexture file is incorrect\n", 2);
 			return (-1);
 		}
-		img.addr = (int *)mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+		img.addr = (int *)mlx_get_data_addr(\
+				img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
 		frame->data[i] = img;
 	}
 	*d_curr = frame;

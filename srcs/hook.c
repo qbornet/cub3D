@@ -19,13 +19,12 @@ int	move_down(int keycode, t_data **d_curr)
 	return (0);
 }
 
-/* crl est pour faire du circle strafe */
 int	move_release(int keycode, t_data **d_curr)
 {
 	t_data	*frame;
 
 	frame = *d_curr;
-	if (keycode == W_KEY) 
+	if (keycode == W_KEY)
 		frame->forward = 0;
 	if (keycode == S_KEY)
 		frame->backward = 0;

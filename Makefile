@@ -23,13 +23,15 @@ PARSER := parser.c \
 		  ft_parser_utils.c \
 		  ft_free_iptr.c
 
-# File to create 2D raycast
+# File to create raycast
 RAYCAST := ft_conv.c\
 		   ft_moves.c \
 		   ft_pixel_put.c \
 		   hook.c \
 		   shot_ray.c \
 		   crl_move.c \
+		   buffer.c \
+		   setup_dda.c \
 		   start_dda.c
 
 # --- [COMPILE] ---
@@ -40,7 +42,7 @@ DEFINE :=#-D MAIN=1
 
 CC := clang
 DFLAGS := -MMD -Wall -Werror -Wextra
-CFLAGS :=  $(DFLAGS) $(DEFINE) -I ./mlx_linux -I ./utils -I ./test -I ./libft/includes -g3 -fsanitize=address
+CFLAGS :=  $(DFLAGS) $(DEFINE) -I ./mlx_linux -I ./utils -I ./test -I ./libft/includes -g3 #-fsanitize=address
 CPPFLAGS := -L ./mlx_linux -L ./libft
 LDFLAGS := -lft -lmlx_linux -lXext -lX11 -lm
 

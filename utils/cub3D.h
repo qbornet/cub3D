@@ -116,6 +116,20 @@ typedef struct s_data
 	t_img	buffer; // l'image qui permet d'afficher le resultat
 }	t_data;
 
+/* start_dda.c */
+// start dda algo which is basically the start of raycasting
+void	start_dda(t_data **d_curr, t_ray *ray);
+
+/* buffer.c */
+// destroy buffer image
+int		destroy_buffer(t_data **d_curr);
+
+// put buffer to window
+int		put_buffer(t_data **d_curr);
+
+// create buffer image this will have texture and result of raycast
+int		create_buffer(t_data **d_curr);
+
 /* ft_pixel_put.c */
 // my own pixel put (faster compared to the one made for mlx)
 void	ft_pixel_put(t_img *data, int x, int y, int colors);
@@ -141,6 +155,10 @@ void	move_bcrl_l(t_data **d_curr);
 void	move_bcrl_r(t_data **d_curr);
 
 /* ft_moves.c */
+// move dir == 0 forward, dir == 1 backward
+void	move(int dir, char **map, t_ray *ray);
+// rotate dir == 0 left, dir == 1 right
+void	rotate(int dir, t_ray *ray);
 // check if we needed to moves 
 void	ft_moves(t_data **d_curr);
 

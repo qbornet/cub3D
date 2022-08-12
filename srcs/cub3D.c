@@ -60,6 +60,7 @@ int	frame_alloc(t_data **d_curr, char *filename)
 		return (ft_retputstr_int("Error\nNot valide filename\n", 2, -1));
 	if (map_parser(fd, &(*d_curr)->map) < 0)
 		return (ft_retputstr_int("Error\nMap is invalid\n", 2, -1));
+	close(fd);
 	return (0);
 }
 
@@ -77,8 +78,10 @@ int	main(int ac, char **av)
 		return (ft_retputstr_int("Error: with name doesn't have a .cub extansion\n", 2, 0));
 	if (frame_alloc(&frame, av[1]) < 0)
 		return (free_all(&frame));
+	/*
 	ft_print_result(frame->map, NULL);
 	ft_print_result(frame->texture, frame->colors);
+	*/
 	start_window(&frame);
 	return (free_all(&frame));
 }
