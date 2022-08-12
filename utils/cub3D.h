@@ -113,11 +113,11 @@ typedef struct s_data
 	char	**map;
 	size_t	max_x;
 	t_ray	ray;
-	int		mouse_mode;
 	int		prev;
 	t_tex	tex;
 	t_img	data[E_MAX_TEXTURE]; // les textures
 	t_img	buffer; // l'image qui permet d'afficher le resultat
+	int		mouse_mode;
 }	t_data;
 
 /* start_dda.c */

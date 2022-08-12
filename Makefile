@@ -43,9 +43,9 @@ DEFINE :=#-D MAIN=1
 
 CC := clang
 DFLAGS := -MMD -Wall -Werror -Wextra
-CFLAGS :=  $(DFLAGS) $(DEFINE) -I ./mlx_linux -I ./utils -I ./test -I ./libft/includes -g3 #-fsanitize=address
+CFLAGS :=  $(DFLAGS) $(DEFINE) -I ./mlx_linux -I ./utils -I ./test -I ./libft/includes #-g3 -fsanitize=address
 CPPFLAGS := -L ./mlx_linux -L ./libft
-LDFLAGS := -lft -lmlx_linux -lXext -lX11 -lm
+LDFLAGS := -lft -lmlx_Linux -lXext -lX11 -lm
 
 # --- [DIR] ---
 
