@@ -1,12 +1,12 @@
 
 
-NO ./north_texture
+NO ./textures/eagle.xpm
 
-SO ./south_texture
+SO ./textures/eagle.xpm
 
-EA ./east_texture
+EA ./textures/wood.xpm
 
-WE ./west_texture
+WE ./textures/wood.xpm
 
 F		   80,		80,		80
 C				255			,		80			,			100

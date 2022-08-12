@@ -2,8 +2,8 @@
 
 void	ft_pixel_put(t_img *data, int x, int y, int colors)
 {
-	char	*dst;
+	int	*dst;
 
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	dst = data->addr + (y * data->line_length / 4 + x);
 	*(unsigned int *)dst = colors;
 }

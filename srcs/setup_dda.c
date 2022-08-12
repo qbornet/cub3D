@@ -1,28 +1,30 @@
 #include <cub3D.h>
 
-void	starting_pos(char c, int x, int y, t_ray *ray)
+static void	starting_pos(char c, int x, int y, t_data **d_curr)
 {
+	static int	in;
+
 	if (ft_is_sta_pos(c))
 	{
-		ray->posx = (double)x;
-		ray->posy = (double)y;
-		ray->mapx = x;
-		ray->mapy = y;
+		(*d_curr)->ray.posx = (double)x;
+		(*d_curr)->ray.posy = (double)y;
+		(*d_curr)->ray.mapx = x;
+		(*d_curr)->ray.mapy = y;
+		in++;
+	}
+	if (in > 1)
+	{
+		ft_putstr_fd("Error\nMap as multiple starting position\n", 2);
+		free_all(d_curr);
 	}
 }
 
-/* Le plan doit toujours etre perpendiculaire a la direction,
- * donc sachant que l'origine des vecteurs et toujours en haut a gauche et,
- * y descend, x va a droite. */
-
-/* TLDR; On doit avoir le plan et la direction dans la meme position */
-
-void	starting_value(char c, int x, int y, t_data **d_curr)
+static void	starting_value(char c, int x, int y, t_data **d_curr)
 {
 	t_data	*frame;
 
 	frame = *d_curr;
-	starting_pos(c, x, y, &frame->ray);
+	starting_pos(c, x, y, d_curr);
 	if (c == 'N')
 	{
 		frame->ray.dirx = -1;
@@ -46,7 +48,7 @@ void	starting_value(char c, int x, int y, t_data **d_curr)
 	*d_curr = frame;
 }
 
-void	set_colors(t_data **d_curr, int *celling, int *floor)
+static void	set_colors(t_data **d_curr, int *celling, int *floor)
 {
 	(*d_curr)->fcolors = floor[2];
 	(*d_curr)->fcolors |= floor[1] << 8;
@@ -56,7 +58,7 @@ void	set_colors(t_data **d_curr, int *celling, int *floor)
 	(*d_curr)->ccolors |= celling[0] << 16;
 }
 
-int	print2d_map(t_data **d_curr)
+int	setup_dda(t_data **d_curr)
 {
 	int		i;
 	int		j;
@@ -64,9 +66,8 @@ int	print2d_map(t_data **d_curr)
 
 	i = -1;
 	map = (*d_curr)->map;
-	ft_memset(&(*d_curr)->ray, 0, sizeof(t_ray));
-	set_colors(d_curr, (*d_curr)->colors[E_CELLING],
-		(*d_curr)->colors[E_FLOOR]);
+	set_colors(\
+			d_curr, (*d_curr)->colors[E_CELLING], (*d_curr)->colors[E_FLOOR]);
 	i = -1;
 	while (map[++i])
 	{

@@ -25,6 +25,8 @@
 # define ON_DESTROY 17
 # define WIDTH 800
 # define HEIGHT 600
+# define TEX_WIDTH 64
+# define TEX_HEIGHT 64
 
 enum e_colors_pos
 {
@@ -75,13 +77,25 @@ typedef struct s_ray
 	double	rotspeed; // vitesse de rotation
 }	t_ray;
 
+typedef struct s_tex
+{
+	int				texdir; // direction NO S EA WE de la texture
+	int				texx; // position x de la texture
+	int				texy; // position y de la texture
+	double			wallx; // side == 1 position x  side == 0 position y ou le mur a etait toucher
+	double			step; // incrementation par pixel
+	double			texpos; // position de la texture
+}	t_tex;
+
 typedef struct s_img
 {
 	void	*img;
-	char	*addr;
+	int		*addr;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+	int		height;
+	int		width;
 }	t_img;
 
 typedef struct s_data
@@ -99,10 +113,26 @@ typedef struct s_data
 	char	**map;
 	size_t	max_x;
 	t_ray	ray;
-	t_img	data[E_MAX_TEXTURE];
 	int		mouse_mode;
 	int		prev;
+	t_tex	tex;
+	t_img	data[E_MAX_TEXTURE]; // les textures
+	t_img	buffer; // l'image qui permet d'afficher le resultat
 }	t_data;
+
+/* start_dda.c */
+// start dda algo which is basically the start of raycasting
+void	start_dda(t_data **d_curr, t_ray *ray);
+
+/* buffer.c */
+// destroy buffer image
+int		destroy_buffer(t_data **d_curr);
+
+// put buffer to window
+int		put_buffer(t_data **d_curr);
+
+// create buffer image this will have texture and result of raycast
+int		create_buffer(t_data **d_curr);
 
 /* ft_pixel_put.c */
 // my own pixel put (faster compared to the one made for mlx)
@@ -132,6 +162,10 @@ void	move_bcrl_l(t_data **d_curr);
 void	move_bcrl_r(t_data **d_curr);
 
 /* ft_moves.c */
+// move dir == 0 forward, dir == 1 backward
+void	move(int dir, char **map, t_ray *ray);
+// rotate dir == 0 left, dir == 1 right
+void	rotate(int dir, t_ray *ray);
 // check if we needed to moves 
 void	ft_moves(t_data **d_curr);
 
@@ -146,9 +180,9 @@ double	ft_rad2deg(double radians);
 // take a degree as input and return it to radian format
 double	ft_deg2rad(double degree);
 
-/* print2d_map.c */
-// this will map in window
-int		print2d_map(t_data **d_curr);
+/* start_dda.c */
+// set starting value needed for dda algo plus other value needed for raycasting
+int		setup_dda(t_data **d_curr);
 
 /* parser.c */
 // check if the extension is valid
