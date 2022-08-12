@@ -101,6 +101,7 @@ typedef struct s_data
 	t_ray	ray;
 	t_img	data[E_MAX_TEXTURE];
 	int		mouse_mode;
+	int		prev;
 }	t_data;
 
 /* ft_pixel_put.c */

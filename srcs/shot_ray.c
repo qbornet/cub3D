@@ -115,9 +115,6 @@ int	shot_ray(t_data **d_curr)
 	}
 	mlx_put_image_to_window((*d_curr)->mlx, (*d_curr)->win, (*d_curr)->data[0].img, 0, 0);
 	(*d_curr)->ray.x = 0;
-	if (!frame->mouse_mode)
-		ft_moves(d_curr);
-	else
-		ft_moves_mouse(d_curr, x);
+	ft_moves(d_curr);
 	return (0);
 }

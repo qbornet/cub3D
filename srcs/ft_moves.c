@@ -59,16 +59,19 @@ static void	move_lr(t_data **d_curr)
 
 void	ft_moves(t_data **d_curr)
 {
-	if ((*d_curr)->forward && (*d_curr)->left)
+	t_data	*frame;
+
+	frame = *d_curr;
+	if (!frame->mouse_mode && frame->forward && frame->left)
 		move_crl_l(d_curr);
-	else if ((*d_curr)->forward && (*d_curr)->right)
+	else if (!frame->mouse_mode && frame->forward && frame->right)
 		move_crl_r(d_curr);
-	else if ((*d_curr)->backward && (*d_curr)->left)
+	else if (!frame->mouse_mode && frame->backward && frame->left)
 		move_bcrl_l(d_curr);
-	else if ((*d_curr)->backward && (*d_curr)->right)
+	else if (!frame->mouse_mode && frame->backward && frame->right)
 		move_bcrl_r(d_curr);
-	else if ((*d_curr)->forward || (*d_curr)->backward)
+	else if (frame->forward || frame->backward)
 		move_fb(d_curr);
-	else if ((*d_curr)->left || (*d_curr)->right)
+	else if (!frame->mouse_mode && (frame->left || frame->right))
 		move_lr(d_curr);
 }
