@@ -28,6 +28,11 @@ static int	set_data(t_data **d_curr)
 	return (0);
 }
 
+// Pas de handler dans la mlx pour recup x, y, et le param
+// Impossible de repositionner la souris si l'utilisateurs 
+// reussi a sortir de la window (notamment en bourinant les
+// angles);
+/*
 static int	mouse_out(int x, int y, t_data **d_curr)
 {
 	(void)x;
@@ -40,6 +45,7 @@ static int	mouse_out(int x, int y, t_data **d_curr)
 	mlx_mouse_move(frame->mlx, frame->win, WIDTH / 2, HEIGHT / 2);
 	return (0);
 }
+*/
 
 int	start_window(t_data **d_curr)
 {
@@ -56,7 +62,7 @@ int	start_window(t_data **d_curr)
 		return (free_all(d_curr));
 	setup_dda(&frame);
 	mlx_hook(frame->win, ON_MOUSEMOVE, (1L << 6), &mouse_move, &frame);
-	mlx_hook(frame->win, 8, (1L << 5), &mouse_out, d_curr);
+	//mlx_hook(frame->win, 8, (1L << 5), &mouse_out, d_curr);
 	mlx_hook(frame->win, ON_DESTROY, 0, &free_all, &frame);
 	mlx_hook(frame->win, ON_KEYDOWN, (1L << 0), &move_down, &frame);
 	mlx_loop_hook(frame->mlx, &shot_ray, &frame);

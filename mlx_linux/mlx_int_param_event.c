@@ -47,12 +47,6 @@ int	mlx_int_param_MotionNotify(t_xvar *xvar, XEvent *ev, t_win_list *win)
 				win->hooks[MotionNotify].param);
 }
 
-int	mlx_int_param_LeaveNotify(t_xvar *xvar, XEvent *ev, t_win_list *win)
-{
-	win->hooks[LeaveNotify].hook(ev->xbutton.x,ev->xbutton.y,
-				win->hooks[LeaveNotify].param);
-}
-
 int	mlx_int_param_Expose(t_xvar *xvar, XEvent *ev, t_win_list *win)
 {
   if (!ev->xexpose.count)
@@ -75,7 +69,7 @@ int	(*(mlx_int_param_event[]))() =
   mlx_int_param_ButtonRelease,
   mlx_int_param_MotionNotify,  /* 6 */
   mlx_int_param_generic,
-  mlx_int_param_LeaveNotify, /* 8 */
+  mlx_int_param_generic,
   mlx_int_param_generic,
   mlx_int_param_generic,
   mlx_int_param_generic,
