@@ -3,7 +3,6 @@
 static void	act_mouse_mode(t_data *frame)
 {
 	frame->mouse_mode = !frame->mouse_mode;
-	mlx_mouse_move(frame->mlx, frame->win, WIDTH / 2, HEIGHT / 2);
 	if (frame->mouse_mode)
 		mlx_mouse_hide(frame->mlx, frame->win);
 	else
