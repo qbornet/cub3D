@@ -72,11 +72,12 @@ void	rotate(int dir, t_ray *r)
 	}
 	else
 	{
-		r->dirx = r->dirx * cos(r->rotspeed) - r->diry * sin(r->rotspeed);
-		r->diry = old_dirx * sin(r->rotspeed) + r->diry * cos(r->rotspeed);
-		r->planex = r->planex * cos(r->rotspeed) - r->planey * sin(r->rotspeed);
-		r->planey = old_planex * sin(r->rotspeed) \
-			+ r->planey * cos(r->rotspeed);
+		r->dirx = r->dirx * cos(-r->rotspeed) - r->diry * sin(-r->rotspeed);
+		r->diry = old_dirx * sin(-r->rotspeed) + r->diry * cos(-r->rotspeed);
+		r->planex = r->planex * cos(-r->rotspeed) \
+					- r->planey * sin(-r->rotspeed);
+		r->planey = old_planex * sin(-r->rotspeed) \
+			+ r->planey * cos(-r->rotspeed);
 	}
 }
 
