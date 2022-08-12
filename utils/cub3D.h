@@ -289,5 +289,6 @@ int		free_all(t_data **d_curr);
 
 /* ft_moves_mouse.c */
 void	ft_moves_mouse(t_data **d_curr, int x);
+void	stop_mouse_move(t_data *frame);
 
 #endif

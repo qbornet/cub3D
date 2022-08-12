@@ -1,5 +1,15 @@
 #include <cub3D.h>
 
+static void	act_mouse_mode(t_data *frame)
+{
+	frame->mouse_mode = !frame->mouse_mode;
+	mlx_mouse_move(frame->mlx, frame->win, WIDTH / 2, HEIGHT / 2);
+	if (frame->mouse_mode)
+		mlx_mouse_hide(frame->mlx, frame->win);
+	else
+		mlx_mouse_show(frame->mlx, frame->win);
+}
+
 int	move_down(int keycode, t_data **d_curr)
 {
 	t_data	*frame;
@@ -8,14 +18,7 @@ int	move_down(int keycode, t_data **d_curr)
 	if (keycode == ESC_KEY)
 		free_all(d_curr);
 	if (keycode == M_KEY)
-	{
-		frame->mouse_mode = !frame->mouse_mode;
-		mlx_mouse_move(frame->mlx, frame->win, WIDTH / 2, HEIGHT / 2);
-		if (frame->mouse_mode)
-			mlx_mouse_hide(frame->mlx, frame->win);
-		else
-			mlx_mouse_show(frame->mlx, frame->win);
-	}
+		act_mouse_mode(frame);
 	if (keycode == W_KEY)
 		frame->forward = 1;
 	if (keycode == S_KEY)
@@ -51,14 +54,11 @@ int	move_release(int keycode, t_data **d_curr)
 	return (0);
 }
 
-int mouse_move(int x, int y, t_data **d_curr)
+int	mouse_move(int x, int y, t_data **d_curr)
 {
 	t_data	*frame;
 
-	(void)y;
-	(void)x;
 	frame = *d_curr;
-	(void)frame;
 	if (!frame->mouse_mode)
 		return (0);
 	frame->right = 1;

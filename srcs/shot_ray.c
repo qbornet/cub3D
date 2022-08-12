@@ -61,21 +61,8 @@ void	draw_column(t_data **d_curr, t_ray ray)
 int	shot_ray(t_data **d_curr)
 {
 	t_ray	ray;
-	static int	prev = 0;
-	int	x;
-	int	y;
-	t_data	*frame;
 
-	frame = *d_curr;
-
-	if (frame->mouse_mode)
-	{
-		mlx_mouse_get_pos(frame->mlx, frame->win, &x, &y);
-		if (prev == x)
-			frame->right = 0;
-		prev = x;
-	}
-
+	stop_mouse_move(*d_curr);
 	ray = (*d_curr)->ray;
 	ray.x = 0;
 	create_buffer(d_curr);
