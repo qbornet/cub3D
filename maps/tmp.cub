@@ -1,9 +1,0 @@
-N	~/path_to_texture
-S	~/path_to_texture
-W	~/path_to_texture
-E	~/path_to_texture
-
-F 300,350,400
-C -10,500505,+112
-
-this shouldn't work and return Error

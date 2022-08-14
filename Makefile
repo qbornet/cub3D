@@ -37,7 +37,6 @@ RAYCAST := ft_conv.c\
 
 # --- [COMPILE] ---
 
-TEST := test.c
 UTILS := $(UTILSDIR)$(addsufix .h, $(NAME))
 DEFINE :=#-D MAIN=1
 
@@ -52,21 +51,14 @@ LDFLAGS := -lft -lmlx_Linux -lXext -lX11 -lm
 OBJSDIR := objs/
 SRCSDIR := srcs/
 UTILSDIR := utils/
-TESTDIR := test/
 
 # --- [OBJECT] ---
 OBJS := $(SRCS:%.c=$(OBJSDIR)%.o)
 POBJS := $(PARSER:%.c=$(OBJSDIR)%.o)
-TOBJS := $(TEST:%.c=$(OBJSDIR)%.o)
 ROBJS := $(RAYCAST:%.c=$(OBJSDIR)%.o)
 DEPS := $(OBJS:%.o=%.d)
 
 # --- [RULES] ---
-$(OBJSDIR)%.o: $(TESTDIR)%.c $(UTILS)
-	make -C ./libft
-	make -C ./mlx_linux
-	mkdir -p $(OBJSDIR) 2>&1 > /dev/null
-	$(CC) $(CFLAGS) -c $< -o $@
 
 $(OBJSDIR)%.o:	$(SRCSDIR)%.c $(UTILS)
 	make -C ./libft
@@ -77,29 +69,16 @@ $(OBJSDIR)%.o:	$(SRCSDIR)%.c $(UTILS)
 $(NAME): $(OBJS) $(POBJS) $(ROBJS)
 	$(CC) $(CFLAGS) $(CPPFLAGS) $^ -o $@ $(LDFLAGS)
 
-parser: $(OBJS) $(POBJS)
-	$(CC) $(CFLAGS) $(CPPFLAGS) $^ -o $@ $(LDFLAGS) 
-
-test.out: $(OBJS) $(TOBJS) $(POBJS)
-	$(CC) $(CFLAGS) $(CPPFLAGS) $^ -o $@ $(LDFLAGS)
-	./test.out
-
-testclean:
-	rm -rf $(OBJSDIR)
-	rm -rf test.out
-
-retest: testclean test.out
-
 clean:
 	make clean -C ./mlx_linux
 	rm -rf $(OBJSDIR)
 
 fclean: clean
 	make fclean -C ./libft
-	rm -rf parser
+	rm -rf $(NAME)
 
-re: fclean parser
+re: fclean $(NAME)
 
 -include $(DEPS)
 
-.PHONY: retest testclean clean fclean re
+.PHONY: clean fclean re
