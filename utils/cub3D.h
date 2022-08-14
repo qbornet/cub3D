@@ -44,47 +44,44 @@ enum e_texture_pos
 	E_MAX_TEXTURE
 };
 
-/* Tout les vecteur fonctionne comme ca, x de droite (0 >) a gauche(0 <),
- * y de bas(0 >) en haut (< 0).*/
-
 typedef struct s_ray
 {
-	int		mapx; // vecteur du joueur x en int
-	int		mapy; // vecteur du joueur y en int
-	int		stepx; // increntation donne la direction dans la quelle on va -1 ou 1 pour x
-	int		stepy; // increntation donne la direction dans la quelle on va -1 ou 1 pour y
-	int		lineheight; // la taille de la ligne a dessigner
-	int		drawstart; // la position de depart pour dessigner la ligne
-	int		drawend; // la position de fin pour dessigner la ligne
-	int		x; // le ray
-	int		hit; // si le ray a hit ou non
-	int		side; // pour differencier qu'elle coter c'est stoper sur le mur sidedistx/sidedisty
-	double	posx; // vecteur du joueur x
-	double	posy; // vecteur du joueur y
-	double	dirx; // vecteur de direction du joueur x
-	double	diry; // vecteur de direction du joueur y
-	double	planex; // vecteur du plan donne le FoV (Field Of View) x
-	double	planey; // vecteur du plan donne le FoV (Field Of View) y
-	double	camerax;  // donne la cordonner x de l'ecran (gauche = -1 millieux = 0 droite = 1)
-	double	raydirx; // calcul de la direction x du rayon
-	double	raydiry; // calcul de la direction y du rayon
-	double	sidedistx; // la distance que le rayon a parcourue depuis la position du debut sur l'axe x
-	double	sidedisty; // la distance que le rayon a parcourue depuis la position du debut sur l'axe y
-	double	dx; // delta de x la difference entre x et x1
-	double	dy; // delta de y la difference entre y et y1
-	double	perpwall; // distance du mur
-	double	movespeed; // vitesse de deplacement
-	double	rotspeed; // vitesse de rotation
+	int		mapx;
+	int		mapy;
+	int		stepx;
+	int		stepy;
+	int		lineheight;
+	int		drawstart;
+	int		drawend;
+	int		x;
+	int		hit;
+	int		side;
+	double	posx;
+	double	posy;
+	double	dirx;
+	double	diry;
+	double	planex;
+	double	planey;
+	double	camerax;
+	double	raydirx;
+	double	raydiry;
+	double	sidedistx;
+	double	sidedisty;
+	double	dx;
+	double	dy;
+	double	perpwall;
+	double	movespeed;
+	double	rotspeed;
 }	t_ray;
 
 typedef struct s_tex
 {
-	int				texdir; // direction NO S EA WE de la texture
-	int				texx; // position x de la texture
-	int				texy; // position y de la texture
-	double			wallx; // side == 1 position x  side == 0 position y ou le mur a etait toucher
-	double			step; // incrementation par pixel
-	double			texpos; // position de la texture
+	int				texdir;
+	int				texx;
+	int				texy;
+	double			wallx;
+	double			step;
+	double			texpos;
 }	t_tex;
 
 typedef struct s_img
@@ -115,8 +112,8 @@ typedef struct s_data
 	t_ray	ray;
 	int		prev;
 	t_tex	tex;
-	t_img	data[E_MAX_TEXTURE]; // les textures
-	t_img	buffer; // l'image qui permet d'afficher le resultat
+	t_img	data[E_MAX_TEXTURE];
+	t_img	buffer;
 	int		mouse_mode;
 }	t_data;
 
@@ -146,7 +143,7 @@ int		move_down(int keycode, t_data **d_curr);
 int		move_release(int keycode, t_data **d_curr);
 
 // hook for mlx, when mouse moving
-int	mouse_move(int x, int y, t_data **d_curr);
+int		mouse_move(int x, int y, t_data **d_curr);
 
 /* crl_move.c */
 // circule moves left
@@ -206,7 +203,8 @@ int		ft_valid_file(char *filename);
 int		start_window(t_data **d_curr);
 
 /* opt_parser.c */
-// check for atoi if to many numbers are input or not enought input 1 reset to 0 the static
+// check for atoi if to many numbers, 
+// are input or not enought input 1 reset to 0 the static
 int		ft_check_numconv(int input);
 
 // optimization for norm of colors_atoi fucntion
@@ -216,11 +214,9 @@ void	opt_check_commas(char *str, int *i, int *count);
 // optimization for norm of select_direction function
 void	opt_setdirection(char **t_curr, int direction);
 
-
 /* parser_colors.c */
 // return tab with rgb colors of celling and floor
 int		**get_colors(char *filename);
-
 
 /* ft_retputstr_int.c */
 // print and return value
@@ -238,7 +234,8 @@ char	*ft_retfree_str(char **s);
 char	*ft_retfree_tab(char ***tab, size_t len);
 
 /* map_parser.c */
-// Return 0 if the map is valid or -1 if the map is not valid; The map is saved inside res if valid.
+// Return 0 if the map is valid or -1,
+// if the map is not valid; The map is saved inside res if valid.
 int		map_parser(int fd, char ***res);
 
 // Current line check; if correct get_next_line else return -1
@@ -264,7 +261,8 @@ int		ft_cpy_tab(const char **tab, char **res, size_t len);
 // Return tab len /!\ Do not use if no NULL inside tab /!\.
 size_t	ft_len_tab(const char **tab);
 
-// Allocate a new tab, if s is not NULL place it at index 0 of the tab and NULL at index 1
+// Allocate a new tab, 
+// if s is not NULL place it at index 0 of the tab and NULL at index 1
 char	**ft_new_tab(const char *s);
 
 // Return a tab of string updated with s at the end
@@ -273,7 +271,9 @@ char	**ft_add_str(const char **tab, const char *s);
 /* map_parser_res.c */
 // Init res and return 0 else return -1
 char	**init_res(int fd, char **l, char **l_bef, int *pos);
-// return -1 free everything and read all the file until the end (leaks on gnl if not)
+
+// return -1 free everything and,
+// read all the file until the end (leaks on gnl if not)
 int		ft_clear_map_parser(int fd, char ***res);
 
 // Add valid line to res

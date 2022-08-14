@@ -74,11 +74,11 @@ $(OBJSDIR)%.o:	$(SRCSDIR)%.c $(UTILS)
 	mkdir -p $(OBJSDIR) 2>&1 > /dev/null
 	$(CC) $(CFLAGS) -c $< -o $@
 
+$(NAME): $(OBJS) $(POBJS) $(ROBJS)
+	$(CC) $(CFLAGS) $(CPPFLAGS) $^ -o $@ $(LDFLAGS)
+
 parser: $(OBJS) $(POBJS)
 	$(CC) $(CFLAGS) $(CPPFLAGS) $^ -o $@ $(LDFLAGS) 
-
-raycast: $(OBJS) $(POBJS) $(ROBJS)
-	$(CC) $(CFLAGS) $(CPPFLAGS) $^ -o $@ $(LDFLAGS)
 
 test.out: $(OBJS) $(TOBJS) $(POBJS)
 	$(CC) $(CFLAGS) $(CPPFLAGS) $^ -o $@ $(LDFLAGS)

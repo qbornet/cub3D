@@ -1,5 +1,6 @@
 #include <cub3D.h>
 
+/*
 void	ft_print_result(char **texture, int **colors)
 {
 	if (colors && *colors)
@@ -15,6 +16,7 @@ void	ft_print_result(char **texture, int **colors)
 		for (int i = 0; texture[i]; i++)
 			printf("%s\n", texture[i]);
 }
+*/
 
 int	free_all(t_data **d_curr)
 {
@@ -67,8 +69,6 @@ int	frame_alloc(t_data **d_curr, char *filename)
 	return (0);
 }
 
-#ifndef MAIN
-
 int	main(int ac, char **av)
 {
 	t_data	*frame;
@@ -76,17 +76,13 @@ int	main(int ac, char **av)
 	if (ac > 2)
 		return (ft_retputstr_int("Error: too many arguments\n", 2, 0));
 	if (ac == 1)
-		return (ft_retputstr_int("Error: need one argument <path_to_file.cub>\n", 2, 0));
+		return (ft_retputstr_int(\
+					"Error: need one argument <path_to_file.cub>\n", 2, 0));
 	if (!valid_name(av[1]))
-		return (ft_retputstr_int("Error: with name doesn't have a .cub extansion\n", 2, 0));
+		return (ft_retputstr_int(\
+					"Error: with name doesn't have a .cub extansion\n", 2, 0));
 	if (frame_alloc(&frame, av[1]) < 0)
 		return (free_all(&frame));
-	/*
-	ft_print_result(frame->map, NULL);
-	ft_print_result(frame->texture, frame->colors);
-	*/
 	start_window(&frame);
 	return (free_all(&frame));
 }
-
-#endif
