@@ -6,7 +6,7 @@
 /*   By: jfrancai <jfrancai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 13:59:47 by jfrancai          #+#    #+#             */
-/*   Updated: 2022/08/15 13:59:48 by jfrancai         ###   ########.fr       */
+/*   Updated: 2022/08/15 15:37:48 by jfrancai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,10 @@ static void	step_side(t_data **d_curr, t_ray *ray)
 
 void	start_dda(t_data **d_curr, t_ray *ray)
 {
-	ray->camerax = 2 * ray->x / (double)WIDTH - 1;
+	if (WIDTH % 2)
+		ray->camerax = 2 * ray->x / (double)WIDTH - 1;
+	else
+		ray->camerax = 2 * ray->x / ((double)WIDTH - 1) - 1;
 	ray->raydirx = ray->dirx + ray->planex * ray->camerax;
 	ray->raydiry = ray->diry + ray->planey * ray->camerax;
 	ray->mapx = (int)ray->posx;
