@@ -6,7 +6,7 @@
 /*   By: jfrancai <jfrancai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 13:59:43 by jfrancai          #+#    #+#             */
-/*   Updated: 2022/08/15 14:25:32 by jfrancai         ###   ########.fr       */
+/*   Updated: 2022/08/15 15:48:47 by qbornet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ static void	starting_pos(char c, int x, int y, t_data **d_curr)
 
 	if (ft_is_sta_pos(c))
 	{
-		(*d_curr)->ray.posx = (double)x;
-		(*d_curr)->ray.posy = (double)y;
+		(*d_curr)->ray.posx = (double)x + 0.5;
+		(*d_curr)->ray.posy = (double)y + 0.5;
 		(*d_curr)->ray.mapx = x;
 		(*d_curr)->ray.mapy = y;
 		in++;
