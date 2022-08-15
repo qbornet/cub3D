@@ -6,7 +6,7 @@
 /*   By: jfrancai <jfrancai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 13:59:45 by jfrancai          #+#    #+#             */
-/*   Updated: 2022/08/15 13:59:46 by jfrancai         ###   ########.fr       */
+/*   Updated: 2022/08/15 15:05:17 by jfrancai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,30 @@ int	shot_ray(t_data **d_curr)
 		ray.x += 1;
 		ray.hit = 0;
 		(*d_curr)->ray = ray;
+		printf("%d %d %d %d %d %d |%d| %d %d %d %f %f %f %f %f %f %f %f %f %f %f %f %f %f\n", ray.mapx,
+			ray.mapy,
+			ray.stepx,
+			ray.stepy,
+			ray.lineheight,
+			ray.drawstart,
+			ray.drawend,
+			ray.x,
+			ray.hit,
+			ray.side,
+			ray.posx,
+			ray.posy,
+			ray.dirx,
+			ray.diry,
+			ray.planex,
+			ray.planey,
+			ray.camerax,
+			ray.raydirx,
+			ray.raydiry,
+			ray.sidedistx,
+			ray.sidedisty,
+			ray.dx,
+			ray.dy,
+			ray.perpwall);
 	}
 	put_buffer(d_curr);
 	destroy_buffer(d_curr);
