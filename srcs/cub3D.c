@@ -6,7 +6,7 @@
 /*   By: jfrancai <jfrancai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 13:56:43 by jfrancai          #+#    #+#             */
-/*   Updated: 2022/08/15 13:56:44 by jfrancai         ###   ########.fr       */
+/*   Updated: 2022/08/22 17:34:18 by qbornet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	main(int ac, char **av)
 	if (ac == 1)
 		return (ft_retputstr_int(\
 					"Error\nNeed one argument <path_to_file.cub>\n", 2, 0));
-	if (!valid_name(av[1]))
+	if (valid_name(av[1]))
 		return (ft_retputstr_int(\
 					"Error\nWith name doesn't have a .cub extansion\n", 2, 0));
 	if (frame_alloc(&frame, av[1]) < 0)

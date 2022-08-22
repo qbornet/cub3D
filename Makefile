@@ -38,11 +38,10 @@ RAYCAST := ft_conv.c\
 # --- [COMPILE] ---
 
 UTILS := $(UTILSDIR)$(addsufix .h, $(NAME))
-DEFINE :=#-D MAIN=1
 
 CC := clang
 DFLAGS := -MMD -Wall -Werror -Wextra
-CFLAGS :=  $(DFLAGS) $(DEFINE) -I ./mlx_linux -I ./utils -I ./test -I ./libft/includes #-g3 -fsanitize=address
+CFLAGS :=  $(DFLAGS) -I ./mlx_linux -I ./utils -I ./test -I ./libft/includes
 CPPFLAGS := -L ./mlx_linux -L ./libft
 LDFLAGS := -lft -lmlx_Linux -lXext -lX11 -lm
 
@@ -53,6 +52,7 @@ SRCSDIR := srcs/
 UTILSDIR := utils/
 
 # --- [OBJECT] ---
+
 OBJS := $(SRCS:%.c=$(OBJSDIR)%.o)
 POBJS := $(PARSER:%.c=$(OBJSDIR)%.o)
 ROBJS := $(RAYCAST:%.c=$(OBJSDIR)%.o)
@@ -69,6 +69,8 @@ $(OBJSDIR)%.o:	$(SRCSDIR)%.c $(UTILS)
 $(NAME): $(OBJS) $(POBJS) $(ROBJS)
 	$(CC) $(CFLAGS) $(CPPFLAGS) $^ -o $@ $(LDFLAGS)
 
+all: $(NAME)
+
 clean:
 	make clean -C ./mlx_linux
 	rm -rf $(OBJSDIR)
@@ -81,4 +83,4 @@ re: fclean $(NAME)
 
 -include $(DEPS)
 
-.PHONY: clean fclean re
+.PHONY: all clean fclean re

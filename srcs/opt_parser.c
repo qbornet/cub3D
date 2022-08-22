@@ -6,7 +6,7 @@
 /*   By: jfrancai <jfrancai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 13:59:37 by jfrancai          #+#    #+#             */
-/*   Updated: 2022/08/15 13:59:38 by jfrancai         ###   ########.fr       */
+/*   Updated: 2022/08/22 16:04:24 by qbornet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,10 @@ void	opt_setdirection(char **t_curr, int direction)
 	*t_curr = to_find;
 }
 
-int	ft_check_numconv(int input)
+int	ft_digitcom(char c)
 {
-	static int	in;
-
-	if (in > 3)
-		return (-1);
-	if (input)
-	{
-		in = 0;
-		return (0);
-	}
-	in++;
+	if (c == ',' || ft_isdigit(c) || ft_isspace(c))
+		return (1);
 	return (0);
 }
 
@@ -48,8 +40,6 @@ int	opt_colorsatoi(char *str, int *i)
 	int	res;
 
 	res = 0;
-	if (ft_check_numconv(0) < 0)
-		return (256);
 	while (str[*i] && (str[*i] >= '0' && str[*i] <= '9'))
 	{
 		res = res * 10 + (str[*i] - '0');
@@ -58,12 +48,26 @@ int	opt_colorsatoi(char *str, int *i)
 	return (res);
 }
 
-void	opt_check_commas(char *str, int *i, int *count)
+int	opt_colors_value(char *to_find, char **r_curr, char *buff, int i)
 {
-	while (str[*i] && !ft_isdigit(str[*i]))
-	{
-		if (str[*i] == ',')
-			*count += 1;
-		*i += 1;
-	}
+	int		j;
+	int		x;
+	char	*res;
+
+	j = i;
+	x = 0;
+	res = *r_curr;
+	while (buff[j] && buff[j] != '\n')
+		j++;
+	if (!buff[j])
+		return (-1);
+	res = ft_substr(buff, i, (j - i));
+	if (!res)
+		return (-1);
+	while (!ft_isspace(res[x]))
+		x++;
+	*r_curr = res;
+	if (res[0] == to_find[0] && x == 1)
+		return (1);
+	return (-1);
 }

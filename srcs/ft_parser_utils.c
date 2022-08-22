@@ -6,7 +6,7 @@
 /*   By: jfrancai <jfrancai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 13:59:13 by jfrancai          #+#    #+#             */
-/*   Updated: 2022/08/15 13:59:14 by jfrancai         ###   ########.fr       */
+/*   Updated: 2022/08/22 17:22:42 by qbornet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,6 @@ int	ft_valid_file(char *filename)
 		if (!mod_isprint(buff[i]))
 			return (-1);
 	return (1);
-}
-
-int	ft_isvalid_path(char c, char next)
-{
-	if (!c || !next)
-		return (-1);
-	if ((c == '~' && next == '/')
-		|| (c == '.' && next == '/')
-		|| (c == '.' && next == '.')
-		|| (c == '/' && ft_isprint(next)))
-		return (1);
-	return (0);
 }
 
 int	ft_isspace(char c)

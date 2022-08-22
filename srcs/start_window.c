@@ -6,7 +6,7 @@
 /*   By: jfrancai <jfrancai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 13:59:49 by jfrancai          #+#    #+#             */
-/*   Updated: 2022/08/15 13:59:50 by jfrancai         ###   ########.fr       */
+/*   Updated: 2022/08/22 17:30:18 by qbornet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,11 @@ int	start_window(t_data **d_curr)
 	frame->mlx = mlx_init();
 	if (!frame->mlx)
 		return (-1);
+	if (set_data(&frame) < 0)
+		return (free_all(d_curr));
 	frame->win = mlx_new_window(frame->mlx, WIDTH, HEIGHT, "cub3D");
 	if (!frame->win)
 		return (-1);
-	if (set_data(&frame) < 0)
-		return (free_all(d_curr));
 	setup_dda(&frame);
 	mlx_hook(frame->win, ON_MOUSEMOVE, (1L << 6), &mouse_move, &frame);
 	mlx_hook(frame->win, ON_DESTROY, 0, &free_all, &frame);

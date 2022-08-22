@@ -6,7 +6,7 @@
 /*   By: qbornet <qbornet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:52:46 by qbornet           #+#    #+#             */
-/*   Updated: 2022/08/15 15:52:48 by qbornet          ###   ########.fr       */
+/*   Updated: 2022/08/22 15:23:18 by qbornet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,13 +215,14 @@ int		ft_valid_file(char *filename);
 int		start_window(t_data **d_curr);
 
 /* opt_parser.c */
-// check for atoi if to many numbers, 
-// are input or not enought input 1 reset to 0 the static
-int		ft_check_numconv(int input);
+// return 1 if digit or commas or whitespace else return 0
+int		ft_digitcom(char c);
+
+// check if found value is correct
+int		opt_colors_value(char *to_find, char **res, char *buff, int i);
 
 // optimization for norm of colors_atoi fucntion
 int		opt_colorsatoi(char *str, int *i);
-void	opt_check_commas(char *str, int *i, int *count);
 
 // optimization for norm of select_direction function
 void	opt_setdirection(char **t_curr, int direction);

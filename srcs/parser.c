@@ -6,7 +6,7 @@
 /*   By: jfrancai <jfrancai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 13:59:39 by jfrancai          #+#    #+#             */
-/*   Updated: 2022/08/15 13:59:40 by jfrancai         ###   ########.fr       */
+/*   Updated: 2022/08/22 17:46:54 by qbornet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,12 @@ static char	*select_direction(char *buff, int direction)
 	if (!res)
 		return (NULL);
 	i = 0;
-	while (res[i] && !ft_isvalid_path(res[i], res[i + 1]))
+	while (res[i] && !ft_isspace(res[i]))
 		i++;
-	return (opt_select_direction(res, i, ft_strlen(res)));
+	if (!ft_strncmp(res, to_find, ft_strlen(to_find)) && i == 2)
+		return (opt_select_direction(res, i, ft_strlen(res)));
+	free(res);
+	return (NULL);
 }
 
 char	*ft_get_texture(char *filename, int direction)
@@ -90,17 +93,19 @@ char	*ft_get_texture(char *filename, int direction)
 int	valid_name(char *str)
 {
 	int		i;
-	char	*ext;
+	int		count;
 
 	i = -1;
-	ext = NULL;
+	count = 0;
 	while (str && str[++i])
 		if (str[i + 1])
-			if (ft_strchr(&str[i + 1], '.'))
-				ext = ft_strchr(&str[i + 1], '.');
-	if (!ext || (ext && *(ext - 1) && *(ext - 1) == '.'))
+			if (ft_strchr(&str[i + 1], '.') && ++count)
+				str = ft_strchr(&str[i + 1], '.');
+	if (!str)
 		return (0);
-	if (!ft_strncmp(ext, ".cub", 4))
+	if (count > 1)
+		return (1);
+	if (ft_strncmp(".cub", str, 5))
 		return (1);
 	return (0);
 }
