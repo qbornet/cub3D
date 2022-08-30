@@ -69,6 +69,8 @@ $(OBJSDIR)%.o:	$(SRCSDIR)%.c $(UTILS)
 $(NAME): $(OBJS) $(POBJS) $(ROBJS)
 	$(CC) $(CFLAGS) $(CPPFLAGS) $^ -o $@ $(LDFLAGS)
 
+bonus: $(NAME)
+
 all: $(NAME)
 
 clean:
