@@ -6,7 +6,7 @@
 /*   By: jfrancai <jfrancai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 13:59:21 by jfrancai          #+#    #+#             */
-/*   Updated: 2022/08/30 15:54:32 by qbornet          ###   ########.fr       */
+/*   Updated: 2022/08/30 20:23:14 by qbornet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ int	move_down(int keycode, t_data **d_curr)
 		frame->lrotate = 1;
 	if (keycode == RIGHT_KEY)
 		frame->rrotate = 1;
-	printf("keycode: %d\n", keycode);
-	printf("lrotate: %d, rrotate: %d\n", frame->lrotate, frame->rrotate);
 	*d_curr = frame;
 	return (0);
 }
