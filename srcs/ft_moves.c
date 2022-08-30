@@ -6,7 +6,7 @@
 /*   By: jfrancai <jfrancai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 13:59:09 by jfrancai          #+#    #+#             */
-/*   Updated: 2022/08/15 13:59:10 by jfrancai         ###   ########.fr       */
+/*   Updated: 2022/08/30 16:00:21 by qbornet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ static void	move_lr(t_data **d_curr)
 	ray = &(*d_curr)->ray;
 	if ((*d_curr)->left && (*d_curr)->right)
 		return ;
-	if ((*d_curr)->left)
+	if ((*d_curr)->lrotate)
 		rotate(0, ray);
-	else if ((*d_curr)->right)
+	else if ((*d_curr)->rrotate)
 		rotate(1, ray);
 	(*d_curr)->ray = *ray;
 }
@@ -98,16 +98,16 @@ void	ft_moves(t_data **d_curr)
 	t_data	*frame;
 
 	frame = *d_curr;
-	if (!frame->mouse_mode && frame->forward && frame->left)
+	if (!frame->mouse_mode && frame->forward && frame->lrotate)
 		move_crl_l(d_curr);
-	else if (!frame->mouse_mode && frame->forward && frame->right)
+	else if (!frame->mouse_mode && frame->forward && frame->rrotate)
 		move_crl_r(d_curr);
-	else if (!frame->mouse_mode && frame->backward && frame->left)
+	else if (!frame->mouse_mode && frame->backward && frame->lrotate)
 		move_bcrl_l(d_curr);
-	else if (!frame->mouse_mode && frame->backward && frame->right)
+	else if (!frame->mouse_mode && frame->backward && frame->rrotate)
 		move_bcrl_r(d_curr);
 	else if (frame->forward || frame->backward)
 		move_fb(d_curr);
-	else if (!frame->mouse_mode && (frame->left || frame->right))
+	else if (!frame->mouse_mode && (frame->lrotate || frame->rrotate))
 		move_lr(d_curr);
 }

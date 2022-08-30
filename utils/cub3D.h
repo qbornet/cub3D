@@ -6,7 +6,7 @@
 /*   By: qbornet <qbornet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:52:46 by qbornet           #+#    #+#             */
-/*   Updated: 2022/08/22 15:23:18 by qbornet          ###   ########.fr       */
+/*   Updated: 2022/08/30 15:51:53 by qbornet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@
 # define S_KEY 115
 # define A_KEY 97
 # define D_KEY 100
+# define LEFT_KEY 65361
+# define RIGHT_KEY 65363
 # define ESC_KEY 65307
 # define ON_KEYDOWN 2
 # define ON_RELEASE 3
@@ -115,6 +117,8 @@ typedef struct s_data
 	int		backward;
 	int		left;
 	int		right;
+	int		rrotate;
+	int		lrotate;
 	int		fcolors;
 	int		ccolors;
 	int		**colors;
