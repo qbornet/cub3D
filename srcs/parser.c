@@ -6,7 +6,7 @@
 /*   By: jfrancai <jfrancai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 13:59:39 by jfrancai          #+#    #+#             */
-/*   Updated: 2022/08/22 17:46:54 by qbornet          ###   ########.fr       */
+/*   Updated: 2022/08/30 11:32:49 by jfrancai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,10 @@ int	valid_name(char *str)
 	int		i;
 	int		count;
 
-	i = -1;
 	count = 0;
+	while (str && *str == '.')
+		str++;
+	i = -1;
 	while (str && str[++i])
 		if (str[i + 1])
 			if (ft_strchr(&str[i + 1], '.') && ++count)
