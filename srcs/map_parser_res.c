@@ -6,7 +6,7 @@
 /*   By: jfrancai <jfrancai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 13:59:32 by jfrancai          #+#    #+#             */
-/*   Updated: 2022/08/31 08:48:32 by jfrancai         ###   ########.fr       */
+/*   Updated: 2022/08/31 15:47:27 by jfrancai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ static int	is_invalid_line(const char *l)
 {
 	static int	status = 0;
 
+	while (*l == ' ')
+		l++;
 	if (ft_is_sta_pos(*l) || *l == 'F' || *l == 'C')
 		status++;
 	if (status > 6)

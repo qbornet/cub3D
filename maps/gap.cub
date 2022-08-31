@@ -1,6 +1,6 @@
 
 
-NO ./textures/eagle.xpm
+          NO                  ./textures/eagle.xpm
 
 SO ./textures/eagle.xpm
 
@@ -10,6 +10,7 @@ WE ./textures/wood.xpm
 
 C 80,  80,		80
 F				255			,		80			,			100
+
 
 1
         1111111111111111111111111
