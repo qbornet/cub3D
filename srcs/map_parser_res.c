@@ -6,7 +6,7 @@
 /*   By: jfrancai <jfrancai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 13:59:32 by jfrancai          #+#    #+#             */
-/*   Updated: 2022/08/15 13:59:33 by jfrancai         ###   ########.fr       */
+/*   Updated: 2022/08/31 08:48:32 by jfrancai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,17 @@ static int	is_map_start(const char *l)
 	return (1);
 }
 
+static int	is_invalid_line(const char *l)
+{
+	static int	status = 0;
+
+	if (ft_is_sta_pos(*l) || *l == 'F' || *l == 'C')
+		status++;
+	if (status > 6)
+		return (1);
+	return (0);
+}
+
 static int	get_fst_map_line(int fd, char **l, int *pos)
 {
 	while (1)
@@ -42,6 +53,11 @@ static int	get_fst_map_line(int fd, char **l, int *pos)
 			return (-1);
 		if (is_map_start((const char *)(*l)))
 			return (0);
+		if (is_invalid_line((const char *)(*l)))
+		{
+			free(*l);
+			return (-1);
+		}
 		free(*l);
 	}
 	return (-1);

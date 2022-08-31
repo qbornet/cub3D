@@ -6,7 +6,7 @@
 /*   By: jfrancai <jfrancai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 13:59:41 by jfrancai          #+#    #+#             */
-/*   Updated: 2022/08/22 18:32:23 by qbornet          ###   ########.fr       */
+/*   Updated: 2022/08/31 11:36:13 by jfrancai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,9 @@ int	*select_level(char *buff, int level)
 	char	*res;
 
 	i = -1;
+	res = NULL;
+	if (!buff)
+		return (NULL);
 	if (level == 'f')
 		to_find = "F";
 	else if (level == 'c')
