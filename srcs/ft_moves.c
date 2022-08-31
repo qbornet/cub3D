@@ -6,7 +6,7 @@
 /*   By: jfrancai <jfrancai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 13:59:09 by jfrancai          #+#    #+#             */
-/*   Updated: 2022/08/15 13:59:10 by jfrancai         ###   ########.fr       */
+/*   Updated: 2022/08/30 20:27:01 by qbornet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,28 @@ static void	move_lr(t_data **d_curr)
 	ray = &(*d_curr)->ray;
 	if ((*d_curr)->left && (*d_curr)->right)
 		return ;
-	if ((*d_curr)->left)
+	if ((*d_curr)->lrotate)
 		rotate(0, ray);
-	else if ((*d_curr)->right)
+	else if ((*d_curr)->rrotate)
 		rotate(1, ray);
 	(*d_curr)->ray = *ray;
+}
+
+static void	move_left_right(t_data **d_curr)
+{
+	t_ray	ray;
+	t_data	*frame;
+
+	frame = *d_curr;
+	if (frame->left && frame->right)
+		return ;
+	ray = frame->ray;
+	if (frame->left)
+		move(2, frame->map, &ray);
+	else if (frame->right)
+		move(3, frame->map, &ray);
+	frame->ray = ray;
+	*d_curr = frame;
 }
 
 void	move(int dir, char **map, t_ray *r)
@@ -53,7 +70,7 @@ void	move(int dir, char **map, t_ray *r)
 		if (map[(int)r->posx][(int)(r->posy + r->diry * r->movespeed)] == '0')
 			r->posy += r->diry * r->movespeed;
 	}
-	else
+	else if (dir == 1)
 	{
 		if (!((r->posx - r->dirx * 0.05) < 0)
 			&& map[(int)(r->posx - r->dirx \
@@ -64,7 +81,18 @@ void	move(int dir, char **map, t_ray *r)
 				* r->movespeed)] == '0')
 			r->posy -= r->diry * r->movespeed;
 	}
+	if (dir == 2)
+	{
+		if (map[(int)r->posx][(int)(r->posy - r->movespeed)] == '0')
+			r->posy -= r->movespeed;
+	}
+	else if (dir == 3)
+	{
+		if (map[(int)r->posx][(int)(r->posy + r->movespeed)] == '0')
+			r->posy += r->movespeed;
+	}
 }
+
 
 void	rotate(int dir, t_ray *r)
 {
@@ -98,16 +126,18 @@ void	ft_moves(t_data **d_curr)
 	t_data	*frame;
 
 	frame = *d_curr;
-	if (!frame->mouse_mode && frame->forward && frame->left)
+	if (!frame->mouse_mode && frame->forward && frame->lrotate)
 		move_crl_l(d_curr);
-	else if (!frame->mouse_mode && frame->forward && frame->right)
+	else if (!frame->mouse_mode && frame->forward && frame->rrotate)
 		move_crl_r(d_curr);
-	else if (!frame->mouse_mode && frame->backward && frame->left)
+	else if (!frame->mouse_mode && frame->backward && frame->lrotate)
 		move_bcrl_l(d_curr);
-	else if (!frame->mouse_mode && frame->backward && frame->right)
+	else if (!frame->mouse_mode && frame->backward && frame->rrotate)
 		move_bcrl_r(d_curr);
 	else if (frame->forward || frame->backward)
 		move_fb(d_curr);
-	else if (!frame->mouse_mode && (frame->left || frame->right))
+	else if (frame->right || frame->left)
+		move_left_right(d_curr);
+	else if (!frame->mouse_mode && (frame->lrotate || frame->rrotate))
 		move_lr(d_curr);
 }
