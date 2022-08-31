@@ -6,11 +6,24 @@
 /*   By: jfrancai <jfrancai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 13:59:13 by jfrancai          #+#    #+#             */
-/*   Updated: 2022/08/22 17:22:42 by qbornet          ###   ########.fr       */
+/*   Updated: 2022/08/31 16:21:40 by jfrancai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3D.h>
+
+int	is_invalid_line(const char *l)
+{
+	static int	status = 0;
+
+	while (*l == ' ')
+		l++;
+	if (ft_is_sta_pos(*l) || *l == 'F' || *l == 'C')
+		status++;
+	if (status > 6)
+		return (1);
+	return (0);
+}
 
 static int	mod_isprint(char c)
 {

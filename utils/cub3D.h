@@ -6,7 +6,7 @@
 /*   By: qbornet <qbornet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:52:46 by qbornet           #+#    #+#             */
-/*   Updated: 2022/08/31 08:47:52 by jfrancai         ###   ########.fr       */
+/*   Updated: 2022/08/31 16:22:02 by jfrancai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,6 +203,9 @@ char	**get_texture(char *filename);
 /* ft_parser_utils.c */
 // return 1 if path is normally formated else 0
 int		ft_isvalid_path(char c, char next);
+
+// Return 1 if multiple line def of the same wall skin
+int		is_invalid_line(const char *l);
 
 // return 1 if whitespace else return 0
 int		ft_isspace(char c);
