@@ -6,7 +6,7 @@
 /*   By: qbornet <qbornet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:52:46 by qbornet           #+#    #+#             */
-/*   Updated: 2022/08/31 22:15:41 by jfrancai         ###   ########.fr       */
+/*   Updated: 2022/09/01 16:26:15 by jfrancai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -310,5 +310,9 @@ int		free_all(t_data **d_curr);
 /* ft_moves_mouse.c */
 void	ft_moves_mouse(t_data **d_curr, int x);
 void	stop_mouse_move(t_data *frame);
+
+/* side_move.c */
+// straff move
+void	straff(t_data **d_curr, double pi_4);
 
 #endif

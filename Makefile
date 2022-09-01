@@ -26,6 +26,7 @@ PARSER := parser.c \
 # File to create raycast
 RAYCAST := ft_conv.c\
 		   ft_moves.c \
+		   side_move.c \
 		   ft_moves_mouse.c \
 		   ft_pixel_put.c \
 		   hook.c \
