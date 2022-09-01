@@ -8,8 +8,8 @@ EA ./textures/wood.xpm
 
 WE ./textures/wood.xpm
 
-C 80,  80,		80
-F				255			,		80			,			100
+F 80,  80,		80
+C				255			,		80			,			100
 
 
 1

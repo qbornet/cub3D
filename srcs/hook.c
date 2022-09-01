@@ -6,7 +6,7 @@
 /*   By: jfrancai <jfrancai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 13:59:21 by jfrancai          #+#    #+#             */
-/*   Updated: 2022/08/30 20:23:14 by qbornet          ###   ########.fr       */
+/*   Updated: 2022/09/01 10:35:48 by jfrancai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,11 @@ int	move_down(int keycode, t_data **d_curr)
 			frame->right = 1;
 		if (keycode == A_KEY)
 			frame->left = 1;
+		if (keycode == LEFT_KEY)
+			frame->lrotate = 1;
+		if (keycode == RIGHT_KEY)
+			frame->rrotate = 1;
 	}
-	if (keycode == LEFT_KEY)
-		frame->lrotate = 1;
-	if (keycode == RIGHT_KEY)
-		frame->rrotate = 1;
 	*d_curr = frame;
 	return (0);
 }
@@ -64,11 +64,11 @@ int	move_release(int keycode, t_data **d_curr)
 			frame->left = 0;
 		if (keycode == D_KEY)
 			frame->right = 0;
+		if (keycode == LEFT_KEY)
+			frame->lrotate = 0;
+		if (keycode == RIGHT_KEY)
+			frame->rrotate = 0;
 	}
-	if (keycode == LEFT_KEY)
-		frame->lrotate = 0;
-	if (keycode == RIGHT_KEY)
-		frame->rrotate = 0;
 	*d_curr = frame;
 	return (0);
 }
@@ -80,7 +80,7 @@ int	mouse_move(int x, int y, t_data **d_curr)
 	frame = *d_curr;
 	if (!frame->mouse_mode)
 		return (0);
-	frame->right = 1;
+	frame->rrotate = 1;
 	ft_moves_mouse(d_curr, x);
 	if (x > WIDTH - 100)
 	{
