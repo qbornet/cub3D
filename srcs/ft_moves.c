@@ -6,30 +6,38 @@
 /*   By: jfrancai <jfrancai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 13:59:09 by jfrancai          #+#    #+#             */
-/*   Updated: 2022/09/01 16:25:48 by jfrancai         ###   ########.fr       */
+/*   Updated: 2022/09/02 12:07:31 by jfrancai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3D.h>
 
-static void	move_fb(t_data **d_curr)
+void	move_fb(t_ray *r, t_data **d_curr)
 {
-	t_ray	ray;
 	t_data	*frame;
+	char	**map;
 
 	frame = *d_curr;
+	map = frame->map;
 	if (frame->forward && frame->backward)
 		return ;
-	ray = frame->ray;
 	if (frame->forward)
-		move(0, frame->map, &ray);
+	{
+		if (map[(int)(r->posx + r->dirx * r->movespeed)][(int)r->posy] == '0')
+			r->posx += r->dirx * r->movespeed;
+		if (map[(int)r->posx][(int)(r->posy + r->diry * r->movespeed)] == '0')
+			r->posy += r->diry * r->movespeed;
+	}
 	else if (frame->backward)
-		move(1, frame->map, &ray);
-	frame->ray = ray;
-	*d_curr = frame;
+	{
+		if (map[(int)(r->posx - r->dirx * r->movespeed)][(int)r->posy] == '0')
+			r->posx -= r->dirx * r->movespeed;
+		if (map[(int)r->posx][(int)(r->posy - r->diry * r->movespeed)] == '0')
+			r->posy -= r->diry * r->movespeed;
+	}
 }
 
-static void	move_lr(t_data **d_curr)
+void	rotate_lr(t_data **d_curr)
 {
 	t_ray	*ray;
 
@@ -43,26 +51,6 @@ static void	move_lr(t_data **d_curr)
 	(*d_curr)->ray = *ray;
 }
 
-void	move(int dir, char **map, t_ray *r)
-{
-	r->movespeed = 0.05;
-	if (!dir)
-	{
-		if (map[(int)(r->posx + r->dirx * r->movespeed)][(int)r->posy] == '0')
-			r->posx += r->dirx * r->movespeed;
-		if (map[(int)r->posx][(int)(r->posy + r->diry * r->movespeed)] == '0')
-			r->posy += r->diry * r->movespeed;
-	}
-	else if (dir == 1)
-	{
-		if (!((r->posx - r->dirx * r->movespeed) < 0) && map[(int)(r->posx - r->dirx * r->movespeed)][(int)r->posy] == '0')
-			r->posx -= r->dirx * r->movespeed;
-		if (!((r->posy - r->diry * r->movespeed) < 0) && map[(int)r->posx][(int)(r->posy - r->diry * r->movespeed)] == '0')
-			r->posy -= r->diry * r->movespeed;
-	}
-}
-
-
 void	rotate(int dir, t_ray *r)
 {
 	double	old_dirx;
@@ -70,7 +58,7 @@ void	rotate(int dir, t_ray *r)
 
 	old_dirx = r->dirx;
 	old_planex = r->planex;
-	r->rotspeed = ft_deg2rad(0.66);
+	r->rotspeed = ft_deg2rad(1.32);
 	if (!dir)
 	{
 		r->dirx = r->dirx * cos(r->rotspeed) - r->diry * sin(r->rotspeed);
@@ -93,6 +81,7 @@ void	ft_moves(t_data **d_curr)
 	t_data	*frame;
 
 	frame = *d_curr;
+	frame->ray.movespeed = 0.05;
 	if (!frame->mouse_mode && frame->forward && frame->lrotate)
 		move_crl_l(d_curr);
 	else if (!frame->mouse_mode && frame->forward && frame->rrotate)
@@ -101,20 +90,14 @@ void	ft_moves(t_data **d_curr)
 		move_bcrl_l(d_curr);
 	else if (!frame->mouse_mode && frame->backward && frame->rrotate)
 		move_bcrl_r(d_curr);
-	else if (frame->forward && frame->left)
-		straff(d_curr, 0.785);
-	else if (frame->forward && frame->right)
-		straff(d_curr, -0.785);
-	else if (frame->backward && frame->right)
-		straff(d_curr, -2.356);
-	else if (frame->backward && frame->left)
-		straff(d_curr, 2.356);
+	else if (frame->forward && (frame->right || frame->left))
+		move_flr(&frame->ray, d_curr);
+	else if (frame->backward && (frame->right || frame->left))
+		move_blr(&frame->ray, d_curr);
 	else if (frame->forward || frame->backward)
-		move_fb(d_curr);
-	else if (frame->right)
-		straff(d_curr, -1.57);
-	else if (frame->left)
-		straff(d_curr, 1.57);
+		move_fb(&(*d_curr)->ray, d_curr);
+	else if (frame->right || frame->left)
+		move_lr(&(*d_curr)->ray, d_curr);
 	else if (!frame->mouse_mode && (frame->lrotate || frame->rrotate))
-		move_lr(d_curr);
+		rotate_lr(d_curr);
 }

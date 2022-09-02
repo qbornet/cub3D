@@ -6,7 +6,7 @@
 /*   By: qbornet <qbornet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:52:46 by qbornet           #+#    #+#             */
-/*   Updated: 2022/09/01 16:26:15 by jfrancai         ###   ########.fr       */
+/*   Updated: 2022/09/02 12:03:51 by jfrancai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,7 +176,7 @@ void	move_bcrl_r(t_data **d_curr);
 
 /* ft_moves.c */
 // move dir == 0 forward, dir == 1 backward
-void	move(int dir, char **map, t_ray *ray);
+void	move_fb(t_ray *r, t_data **d_curr);
 // rotate dir == 0 left, dir == 1 right
 void	rotate(int dir, t_ray *ray);
 // check if we needed to moves 
@@ -312,7 +312,13 @@ void	ft_moves_mouse(t_data **d_curr, int x);
 void	stop_mouse_move(t_data *frame);
 
 /* side_move.c */
+// move left right
+void	move_lr(t_ray *r, t_data **d_curr);
+// move forward left right
+void	move_flr(t_ray *r, t_data **d_curr);
+// move backward left right
+void	move_blr(t_ray *r, t_data **d_curr);
 // straff move
-void	straff(t_data **d_curr, double pi_4);
+void	straff(t_ray *r, t_data **d_curr, double pi_4);
 
 #endif
