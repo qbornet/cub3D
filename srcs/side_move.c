@@ -6,7 +6,7 @@
 /*   By: jfrancai <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 14:03:29 by jfrancai          #+#    #+#             */
-/*   Updated: 2022/09/02 12:10:13 by jfrancai         ###   ########.fr       */
+/*   Updated: 2022/09/02 13:57:38 by jfrancai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,41 +14,77 @@
 
 void	move_lr(t_ray *r, t_data **d_curr)
 {
-	t_data	*frame;
+	t_data		*frame;
+	static int	tmp = 1;
 
 	frame = *d_curr;
 	if (frame->left && frame->right)
-		return ;
-	if (frame->right)
+	{
+		if (tmp == 1)
+			straff(r, d_curr, -1.57);
+		else if (tmp == 2)
+			straff(r, d_curr, 1.57);
+	}
+	else if (frame->right)
+	{
+		tmp = 1;
 		straff(r, d_curr, -1.57);
+	}
 	else if (frame->left)
+	{
+		tmp = 2;
 		straff(r, d_curr, 1.57);
+	}
 }
 
 void	move_blr(t_ray *r, t_data **d_curr)
 {
-	t_data	*frame;
+	t_data		*frame;
+	static int	tmp = 1;
 
 	frame = *d_curr;
 	if (frame->backward && frame->right && frame->left)
-		return ;
-	if (frame->backward && frame->right)
+	{
+		if (tmp == 1)
+			straff(r, d_curr, -2.356);
+		else if (tmp == 2)
+			straff(r, d_curr, 2.356);
+	}
+	else if (frame->backward && frame->right)
+	{
+		tmp = 1;
 		straff(r, d_curr, -2.356);
+	}
 	else if (frame->backward && frame->left)
+	{
+		tmp = 2;
 		straff(r, d_curr, 2.356);
+	}
 }
 
 void	move_flr(t_ray *r, t_data **d_curr)
 {
-	t_data	*frame;
+	t_data		*frame;
+	static int	tmp = 1;
 
 	frame = *d_curr;
 	if (frame->forward && frame->right && frame->left)
-		return ;
-	if (frame->forward && frame->left)
+	{
+		if (tmp == 1)
+			straff(r, d_curr, 0.785);
+		else if (tmp == 2)
+			straff(r, d_curr, -0.785);
+	}
+	else if (frame->forward && frame->left)
+	{
+		tmp = 1;
 		straff(r, d_curr, 0.785);
+	}
 	else if (frame->forward && frame->right)
+	{
+		tmp = 2;
 		straff(r, d_curr, -0.785);
+	}
 }
 
 void	straff(t_ray *r, t_data **d_curr, double pi_4)

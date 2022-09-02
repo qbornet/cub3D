@@ -27,6 +27,7 @@ PARSER := parser.c \
 RAYCAST := ft_conv.c\
 		   ft_moves.c \
 		   side_move.c \
+		   move_fb.c \
 		   ft_moves_mouse.c \
 		   ft_pixel_put.c \
 		   hook.c \

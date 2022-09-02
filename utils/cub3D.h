@@ -6,7 +6,7 @@
 /*   By: qbornet <qbornet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:52:46 by qbornet           #+#    #+#             */
-/*   Updated: 2022/09/02 12:03:51 by jfrancai         ###   ########.fr       */
+/*   Updated: 2022/09/02 13:49:11 by jfrancai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -320,5 +320,8 @@ void	move_flr(t_ray *r, t_data **d_curr);
 void	move_blr(t_ray *r, t_data **d_curr);
 // straff move
 void	straff(t_ray *r, t_data **d_curr, double pi_4);
+
+/* move_fb.c */
+void	move_fb(t_ray *r, t_data **d_curr);
 
 #endif

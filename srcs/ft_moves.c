@@ -6,36 +6,11 @@
 /*   By: jfrancai <jfrancai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 13:59:09 by jfrancai          #+#    #+#             */
-/*   Updated: 2022/09/02 12:07:31 by jfrancai         ###   ########.fr       */
+/*   Updated: 2022/09/02 13:47:20 by jfrancai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3D.h>
-
-void	move_fb(t_ray *r, t_data **d_curr)
-{
-	t_data	*frame;
-	char	**map;
-
-	frame = *d_curr;
-	map = frame->map;
-	if (frame->forward && frame->backward)
-		return ;
-	if (frame->forward)
-	{
-		if (map[(int)(r->posx + r->dirx * r->movespeed)][(int)r->posy] == '0')
-			r->posx += r->dirx * r->movespeed;
-		if (map[(int)r->posx][(int)(r->posy + r->diry * r->movespeed)] == '0')
-			r->posy += r->diry * r->movespeed;
-	}
-	else if (frame->backward)
-	{
-		if (map[(int)(r->posx - r->dirx * r->movespeed)][(int)r->posy] == '0')
-			r->posx -= r->dirx * r->movespeed;
-		if (map[(int)r->posx][(int)(r->posy - r->diry * r->movespeed)] == '0')
-			r->posy -= r->diry * r->movespeed;
-	}
-}
 
 void	rotate_lr(t_data **d_curr)
 {
