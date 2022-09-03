@@ -6,7 +6,7 @@
 /*   By: qbornet <qbornet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:52:46 by qbornet           #+#    #+#             */
-/*   Updated: 2022/09/02 13:49:11 by jfrancai         ###   ########.fr       */
+/*   Updated: 2022/09/03 14:20:31 by jfrancai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,17 +162,10 @@ int		move_release(int keycode, t_data **d_curr);
 int		mouse_move(int x, int y, t_data **d_curr);
 
 /* crl_move.c */
-// circule moves left
-void	move_crl_l(t_data **d_curr);
-
-// circule moves right
-void	move_crl_r(t_data **d_curr);
-
-// backward circule moves left
-void	move_bcrl_l(t_data **d_curr);
-
-// backward circule moves right
-void	move_bcrl_r(t_data **d_curr);
+// circule moves forward backward
+void	move_crl_fb(t_data **d_curr);
+// circule moves left right
+void	move_crl(t_data **d_curr, double pi_4);
 
 /* ft_moves.c */
 // move dir == 0 forward, dir == 1 backward
@@ -312,12 +305,8 @@ void	ft_moves_mouse(t_data **d_curr, int x);
 void	stop_mouse_move(t_data *frame);
 
 /* side_move.c */
-// move left right
-void	move_lr(t_ray *r, t_data **d_curr);
-// move forward left right
-void	move_flr(t_ray *r, t_data **d_curr);
-// move backward left right
-void	move_blr(t_ray *r, t_data **d_curr);
+// move
+void	move(t_ray *r, t_data **d_curr, double pi_4);
 // straff move
 void	straff(t_ray *r, t_data **d_curr, double pi_4);
 

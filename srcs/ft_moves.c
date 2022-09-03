@@ -6,7 +6,7 @@
 /*   By: jfrancai <jfrancai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 13:59:09 by jfrancai          #+#    #+#             */
-/*   Updated: 2022/09/02 13:47:20 by jfrancai         ###   ########.fr       */
+/*   Updated: 2022/09/03 18:34:01 by jfrancai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,10 @@ void	rotate(int dir, t_ray *r)
 	{
 		r->dirx = r->dirx * cos(-r->rotspeed) - r->diry * sin(-r->rotspeed);
 		r->diry = old_dirx * sin(-r->rotspeed) + r->diry * cos(-r->rotspeed);
-		r->planex = r->planex * cos(-r->rotspeed) - r->planey * sin(-r->rotspeed);
-		r->planey = old_planex * sin(-r->rotspeed) + r->planey * cos(-r->rotspeed);
+		r->planex = r->planex * cos(-r->rotspeed) \
+				- r->planey * sin(-r->rotspeed);
+		r->planey = old_planex * sin(-r->rotspeed) \
+				+ r->planey * cos(-r->rotspeed);
 	}
 }
 
@@ -57,22 +59,20 @@ void	ft_moves(t_data **d_curr)
 
 	frame = *d_curr;
 	frame->ray.movespeed = 0.05;
-	if (!frame->mouse_mode && frame->forward && frame->lrotate)
-		move_crl_l(d_curr);
-	else if (!frame->mouse_mode && frame->forward && frame->rrotate)
-		move_crl_r(d_curr);
-	else if (!frame->mouse_mode && frame->backward && frame->lrotate)
-		move_bcrl_l(d_curr);
-	else if (!frame->mouse_mode && frame->backward && frame->rrotate)
-		move_bcrl_r(d_curr);
+	if (!frame->mouse_mode && (frame->forward || frame->backward) \
+		&& (frame->lrotate || frame->rrotate))
+		move_crl_fb(d_curr);
+	else if (!frame->mouse_mode && (frame->right || frame->left) \
+		&& (frame->lrotate || frame->rrotate))
+		move_crl(d_curr, 1.57);
 	else if (frame->forward && (frame->right || frame->left))
-		move_flr(&frame->ray, d_curr);
+		move(&frame->ray, d_curr, 0.785);
 	else if (frame->backward && (frame->right || frame->left))
-		move_blr(&frame->ray, d_curr);
+		move(&frame->ray, d_curr, 2.356);
 	else if (frame->forward || frame->backward)
 		move_fb(&(*d_curr)->ray, d_curr);
 	else if (frame->right || frame->left)
-		move_lr(&(*d_curr)->ray, d_curr);
+		move(&(*d_curr)->ray, d_curr, 1.57);
 	else if (!frame->mouse_mode && (frame->lrotate || frame->rrotate))
 		rotate_lr(d_curr);
 }

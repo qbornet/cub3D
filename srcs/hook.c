@@ -6,7 +6,7 @@
 /*   By: jfrancai <jfrancai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 13:59:21 by jfrancai          #+#    #+#             */
-/*   Updated: 2022/09/01 10:35:48 by jfrancai         ###   ########.fr       */
+/*   Updated: 2022/09/03 14:43:25 by jfrancai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ int	move_down(int keycode, t_data **d_curr)
 		frame->forward = 1;
 	if (keycode == S_KEY)
 		frame->backward = 1;
+	if (keycode == D_KEY)
+		frame->right = 1;
+	if (keycode == A_KEY)
+		frame->left = 1;
 	if (!frame->mouse_mode)
 	{
-		if (keycode == D_KEY)
-			frame->right = 1;
-		if (keycode == A_KEY)
-			frame->left = 1;
 		if (keycode == LEFT_KEY)
 			frame->lrotate = 1;
 		if (keycode == RIGHT_KEY)
@@ -58,12 +58,12 @@ int	move_release(int keycode, t_data **d_curr)
 		frame->forward = 0;
 	if (keycode == S_KEY)
 		frame->backward = 0;
+	if (keycode == A_KEY)
+		frame->left = 0;
+	if (keycode == D_KEY)
+		frame->right = 0;
 	if (!frame->mouse_mode)
 	{
-		if (keycode == A_KEY)
-			frame->left = 0;
-		if (keycode == D_KEY)
-			frame->right = 0;
 		if (keycode == LEFT_KEY)
 			frame->lrotate = 0;
 		if (keycode == RIGHT_KEY)
