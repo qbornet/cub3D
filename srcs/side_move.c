@@ -6,7 +6,7 @@
 /*   By: jfrancai <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 14:03:29 by jfrancai          #+#    #+#             */
-/*   Updated: 2022/09/03 18:33:05 by jfrancai         ###   ########.fr       */
+/*   Updated: 2022/09/04 18:26:24 by jfrancai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void	move(t_ray *r, t_data **d_curr, double pi_4)
 	if (frame->left && frame->right)
 	{
 		if (tmp == 1)
-			straff(r, d_curr, pi_4);
-		else if (tmp == 2)
 			straff(r, d_curr, -pi_4);
+		else if (tmp == 2)
+			straff(r, d_curr, pi_4);
 	}
 	else if (frame->right)
 	{
