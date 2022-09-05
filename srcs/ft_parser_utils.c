@@ -6,7 +6,7 @@
 /*   By: jfrancai <jfrancai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 13:59:13 by jfrancai          #+#    #+#             */
-/*   Updated: 2022/08/31 16:21:40 by jfrancai         ###   ########.fr       */
+/*   Updated: 2022/09/05 15:18:06 by jfrancai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int	is_invalid_line(const char *l)
 		l++;
 	if (ft_is_sta_pos(*l) || *l == 'F' || *l == 'C')
 		status++;
+	else if (*l != '\n')
+		return (1);
 	if (status > 6)
 		return (1);
 	return (0);
