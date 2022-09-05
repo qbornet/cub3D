@@ -6,7 +6,7 @@
 /*   By: jfrancai <jfrancai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 13:59:09 by jfrancai          #+#    #+#             */
-/*   Updated: 2022/09/04 18:21:32 by jfrancai         ###   ########.fr       */
+/*   Updated: 2022/09/05 14:44:51 by jfrancai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,27 @@
 
 void	rotate_lr(t_data **d_curr)
 {
-	t_ray	*ray;
+	t_ray		*ray;
+	static int	tmp = 1;
 
 	ray = &(*d_curr)->ray;
-	if ((*d_curr)->left && (*d_curr)->right)
-		return ;
-	if ((*d_curr)->lrotate)
-		rotate(0, ray);
+	if ((*d_curr)->lrotate && (*d_curr)->rrotate)
+	{
+		if (tmp == 1)
+			rotate(-1, ray);
+		else if (tmp == 2)
+			rotate(1, ray);
+	}
+	else if ((*d_curr)->lrotate)
+	{
+		tmp = 1;
+		rotate(-1, ray);
+	}
 	else if ((*d_curr)->rrotate)
+	{
+		tmp = 2;
 		rotate(1, ray);
+	}
 	(*d_curr)->ray = *ray;
 }
 
@@ -34,23 +46,12 @@ void	rotate(int dir, t_ray *r)
 	old_dirx = r->dirx;
 	old_planex = r->planex;
 	r->rotspeed = ft_deg2rad(1.32);
-	if (!dir)
-	{
-		r->dirx = r->dirx * cos(r->rotspeed) - r->diry * sin(r->rotspeed);
-		r->diry = old_dirx * sin(r->rotspeed) + r->diry * cos(r->rotspeed);
-		r->planex = r->planex * cos(r->rotspeed) - r->planey * sin(r->rotspeed);
-		r->planey = old_planex * sin(r->rotspeed) \
+	r->dirx = r->dirx * cos(r->rotspeed) + dir * r->diry * sin(r->rotspeed);
+	r->diry = -dir * old_dirx * sin(r->rotspeed) + r->diry * cos(r->rotspeed);
+	r->planex = r->planex * cos(r->rotspeed) + \
+			dir * r->planey * sin(r->rotspeed);
+	r->planey = -dir * old_planex * sin(r->rotspeed) \
 			+ r->planey * cos(r->rotspeed);
-	}
-	else
-	{
-		r->dirx = r->dirx * cos(-r->rotspeed) - r->diry * sin(-r->rotspeed);
-		r->diry = old_dirx * sin(-r->rotspeed) + r->diry * cos(-r->rotspeed);
-		r->planex = r->planex * cos(-r->rotspeed) \
-				- r->planey * sin(-r->rotspeed);
-		r->planey = old_planex * sin(-r->rotspeed) \
-				+ r->planey * cos(-r->rotspeed);
-	}
 }
 
 void	ft_moves(t_data **d_curr)
