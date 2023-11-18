@@ -1,0 +1,12 @@
+-Wall
+-Werror
+-Wextra
+-I./libft/includes
+-I./test
+-I./utils
+-I./mlx_linux
+-lft
+-lmlx_Linux
+-lXext
+-lX11
+-lm
